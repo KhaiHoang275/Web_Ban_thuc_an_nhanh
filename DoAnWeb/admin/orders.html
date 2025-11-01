@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feane - Quản lý Đơn hàng</title>
+
+    <!-- Font Awesome & Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-color: #ffbe33;
+        --secondary-color: #222831;
+        --light-color: #ffffff;
+        --dark-color: #1a1a1a;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f8f9fa;
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+        height: 100vh;
+        position: fixed;
+        width: 250px;
+        transition: all 0.3s;
+        z-index: 1000;
+      }
+
+      .sidebar-header {
+        padding: 20px;
+        background-color: var(--dark-color);
+      }
+
+      .sidebar-header h3 {
+        color: var(--primary-color);
+        margin: 0;
+      }
+
+      .sidebar ul.components {
+        padding: 20px 0;
+      }
+
+      .sidebar ul li a {
+        padding: 15px 20px;
+        display: block;
+        color: var(--light-color);
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .sidebar ul li a:hover {
+        background-color: var(--dark-color);
+        color: var(--primary-color);
+      }
+
+      .sidebar ul li.active a {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+      }
+
+      .sidebar ul li a i {
+        margin-right: 10px;
+      }
+      .sidebar-header h3 {
+        font-family: "Dancing Script", cursive; /* Đã thay đổi */
+        color: var(--primary-color);
+        margin: 0;
+      }
+
+      /* CONTENT */
+      .content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+      h2 i {
+        color: var(--primary-color);
+        margin-right: 10px;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+
+      .btn-primary:hover {
+        background-color: #e69c00;
+      }
+
+      .table th {
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+      }
+
+      /* STATS CARDS */
+      .stat-card {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-card i {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+      .stat-card .number {
+        font-size: 1.6rem;
+        font-weight: 700;
+      }
+
+      .stat-card .label {
+        color: #6c757d;
+      }
+
+      /* FILTER BAR */
+      .filter-bar input,
+      .filter-bar select {
+        border-radius: 8px;
+      }
+
+      /* POPUP */
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+      }
+
+      .popup:target {
+        display: flex;
+      }
+
+      .popup-content {
+        background: #fff;
+        padding: 25px 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        max-width: 420px;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .popup-content.success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .popup-content.danger {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .popup-actions {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h3><i class="fas fa-utensils"></i> KHK RESTAURANT ADMIN</h3>
+      </div>
+      <ul class="list-unstyled components">
+        <li>
+          <a href="admin.html"
+            ><i class="fas fa-tachometer-alt"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="menumanagement.html"
+            ><i class="fas fa-list"></i> Quản lý Menu</a
+          >
+        </li>
+        <li class="active">
+          <a href="orders.html"
+            ><i class="fas fa-shopping-cart"></i> Đơn hàng</a
+          >
+        </li>
+        <li>
+          <a href="bookingdetail.html"
+            ><i class="fas fa-calendar-alt"></i> Đặt bàn</a
+          >
+        </li>
+        <li>
+          <a href="customers.html"><i class="fas fa-users"></i> Khách hàng</a>
+        </li>
+        <li>
+          <a href="report.html"><i class="fas fa-chart-bar"></i> Báo cáo</a>
+        </li>
+        <li>
+          <a href="setting.html"><i class="fas fa-cog"></i> Cài đặt</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-shopping-cart"></i> Quản lý Đơn hàng</h2>
+        <a href="#addOrder" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Thêm đơn hàng
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="stat-card">
+            <i class="fas fa-clipboard-list"></i>
+            <div class="number">48</div>
+            <div class="label">Tổng số đơn</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-card">
+            <i class="fas fa-hourglass-half"></i>
+            <div class="number">12</div>
+            <div class="label">Đang xử lý</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-card">
+            <i class="fas fa-coins"></i>
+            <div class="number">12,350,000đ</div>
+            <div class="label">Doanh thu hôm nay</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <form class="row g-3 filter-bar">
+            <div class="col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Tìm theo khách hàng hoặc mã đơn..."
+              />
+            </div>
+            <div class="col-md-3">
+              <select class="form-select">
+                <option value="">Trạng thái</option>
+                <option>Hoàn thành</option>
+                <option>Đang xử lý</option>
+                <option>Đã hủy</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <input type="date" class="form-control" />
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-primary w-100">
+                <i class="fas fa-search"></i> Lọc
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Orders Table -->
+      <div class="card">
+        <div class="card-body table-responsive">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Mã đơn</th>
+                <th>Khách hàng</th>
+                <th>Món ăn</th>
+                <th>Tổng tiền</th>
+                <th>Ngày tạo</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#ORD-101</td>
+                <td>Nguyễn Văn A</td>
+                <td>Pizza Hải Sản, Burger Bò</td>
+                <td>450,000đ</td>
+                <td>24/10/2025</td>
+                <td>
+                  <span class="badge bg-success"
+                    ><i class="fas fa-check-circle"></i> Hoàn thành</span
+                  >
+                </td>
+                <td>
+                  <a href="#editOrder" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a
+                    href="#deleteConfirm"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>#ORD-102</td>
+                <td>Trần Thị B</td>
+                <td>Pasta, Khoai tây chiên</td>
+                <td>230,000đ</td>
+                <td>25/10/2025</td>
+                <td>
+                  <span class="badge bg-warning text-dark"
+                    ><i class="fas fa-spinner"></i> Đang xử lý</span
+                  >
+                </td>
+                <td>
+                  <a href="#editOrder" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a
+                    href="#deleteConfirm"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- POPUPS -->
+    <div id="addOrder" class="popup">
+      <div class="popup-content">
+        <h5>Thêm đơn hàng mới</h5>
+        <form>
+          <input
+            type="text"
+            class="form-control mb-2"
+            placeholder="Tên khách hàng"
+            required
+          />
+          <input
+            type="text"
+            class="form-control mb-2"
+            placeholder="Các món ăn"
+            required
+          />
+          <input
+            type="number"
+            class="form-control mb-2"
+            placeholder="Tổng tiền (VNĐ)"
+            required
+          />
+          <textarea class="form-control mb-2" placeholder="Ghi chú"></textarea>
+          <select class="form-select mb-3">
+            <option>Đang xử lý</option>
+            <option>Hoàn thành</option>
+            <option>Đã hủy</option>
+          </select>
+          <div class="popup-actions">
+            <a href="#" class="btn btn-secondary">Hủy</a>
+            <a href="#addSuccess" class="btn btn-primary">Thêm</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="editOrder" class="popup">
+      <div class="popup-content">
+        <h5>Chỉnh sửa đơn hàng</h5>
+        <form>
+          <input
+            type="text"
+            class="form-control mb-2"
+            value="Nguyễn Văn A"
+            required
+          />
+          <input
+            type="text"
+            class="form-control mb-2"
+            value="Pizza Hải Sản, Burger Bò"
+            required
+          />
+          <input
+            type="number"
+            class="form-control mb-2"
+            value="450000"
+            required
+          />
+          <textarea class="form-control mb-2">Không hành tây</textarea>
+          <select class="form-select mb-3">
+            <option selected>Hoàn thành</option>
+            <option>Đang xử lý</option>
+            <option>Đã hủy</option>
+          </select>
+          <div class="popup-actions">
+            <a href="#" class="btn btn-secondary">Hủy</a>
+            <a href="#editSuccess" class="btn btn-primary">Lưu thay đổi</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="deleteConfirm" class="popup">
+      <div class="popup-content danger">
+        <h5>Bạn có chắc muốn xóa đơn hàng này không?</h5>
+        <div class="popup-actions">
+          <a href="#" class="btn btn-secondary">Hủy</a>
+          <a href="#deleteSuccess" class="btn btn-danger">Xóa</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="addSuccess" class="popup">
+      <div class="popup-content success">
+        ✅ Thêm đơn hàng thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="editSuccess" class="popup">
+      <div class="popup-content success">
+        ✏️ Cập nhật đơn hàng thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="deleteSuccess" class="popup">
+      <div class="popup-content success">
+        🗑️ Xóa đơn hàng thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

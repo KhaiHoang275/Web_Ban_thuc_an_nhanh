@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KHK Chicken Fried</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+  <link href="css/style.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      font-family: "Poppins", sans-serif;
+      color: #333;
+    }
+
+    .order-container {
+      max-width: 800px;
+      margin: 80px auto;
+      background: #fff;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .order-container img {
+      width: 120px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #ff6f00;
+      font-weight: bold;
+    }
+
+    .summary {
+      text-align: left;
+      margin-top: 20px;
+      background: #fff8e1;
+      border-radius: 10px;
+      padding: 15px 25px;
+    }
+
+    .summary p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+
+    .btn-back {
+      margin-top: 25px;
+      background-color: #ff6f00;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 25px;
+      transition: 0.3s;
+    }
+
+    .btn-back:hover {
+      background-color: #e65100;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="order-container">
+    <img src="images/f1.png" alt="Pizza">
+    <h1>🎉 Cảm ơn bạn đã đặt hàng!</h1>
+    <p>Đơn hàng của bạn đang được xử lý và sẽ sớm được giao đến bạn 🍕</p>
+
+    <div class="summary">
+      <h4>🧾 Thông tin đơn hàng:</h4>
+      <p><b>Sản phẩm:</b> Delicious Pizza</p>
+      <p><b>Số lượng:</b> 1</p>
+      <p><b>Tổng tiền:</b> 200.000₫</p>
+      <p><b>Trạng thái:</b> Đang xử lý</p>
+    </div>
+
+    <button class="btn-back" onclick="window.location.href='menu.html'">
+      ← Tiếp tục mua hàng
+    </button>
+  </div>
+</body>
+</html>
