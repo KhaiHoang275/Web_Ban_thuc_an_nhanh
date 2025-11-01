@@ -30,6 +30,74 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
 
+  <style>
+    /* CSS cho thanh tìm kiếm */
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      position: relative;
+    }
+    
+    .search-box {
+      display: flex;
+      background: white;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border: 2px solid #ffbe33;
+    }
+    
+    .search-input {
+      flex-grow: 1;
+      padding: 12px 20px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+      background: transparent;
+    }
+    
+    .search-button {
+      background: #ffbe33;
+      color: white;
+      border: none;
+      padding: 0 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    
+    .search-button:hover {
+      background: #e69c00;
+    }
+    
+    .search-results-info {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #666;
+      font-style: italic;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #ffbe33;
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 40px 0;
+      color: #666;
+    }
+    
+    .no-results i {
+      font-size: 48px;
+      color: #ddd;
+      margin-bottom: 15px;
+    }
+    
+    /* Đảm bảo các món ăn ẩn hoàn toàn khi không khớp */
+    .col-sm-6.col-lg-4.all[style*="display: none"] {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body class="sub_page">
@@ -86,43 +154,9 @@
             </svg>
           </a>
 
-          <div class="search-container">
-            <!-- Ô tìm kiếm -->
-            <input type="text" id="search-box" placeholder="Tìm kiếm...">
-
-            <!-- Nút tìm kiếm bên phải trong ô -->
-            <button type="button" id="inner-search-btn">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-
-            <!-- Nút mở/đóng thanh tìm kiếm -->
-            <button type="button" class="btn my-2 my-sm-0 nav_search-btn" id="search-btn">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-          </div>
-
-          <script>
-            const toggleBtn = document.getElementById('search-btn');
-            const searchBox = document.getElementById('search-box');
-            const innerSearch = document.getElementById('inner-search-btn');
-
-            // Mở/đóng thanh tìm kiếm
-            toggleBtn.addEventListener('click', function () {
-              searchBox.classList.toggle('active');
-              if (searchBox.classList.contains('active')) {
-                searchBox.focus();
-              }
-            });
-
-            // Hành động khi bấm nút tìm kiếm bên trong
-            innerSearch.addEventListener('click', function () {
-              const value = searchBox.value.trim();
-              if (value) {
-                alert('Bạn vừa tìm: ' + value);
-                // Ở đây bạn có thể thay alert bằng code tìm kiếm thật
-              }
-            });
-          </script>
+          <a href="menu.html" class="btn my-2 my-sm-0 nav_search-btn">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </a>
 
           <!-- ✅ Nút đăng nhập / hiển thị tên -->
           <a id="loginButton" href="index.html" class="order_online">Đăng nhập</a>
@@ -181,89 +215,89 @@
   }
   // --- HẾT HÀM CẬP NHẬT SỐ LƯỢNG ---
 
-  document.addEventListener("DOMContentLoaded", () => {
-      // Tìm phần tử kích hoạt profile (username/Đăng nhập button)
-      const profileTrigger = document.querySelector(".order_online");
-  
-      // Lấy tên đăng nhập
-      const loggedInUser = localStorage.getItem("loggedInUser") || localStorage.getItem("username"); 
-  
-      if (profileTrigger) {
-          if (loggedInUser) {
-              // ✅ CHẾ ĐỘ ĐÃ ĐĂNG NHẬP
-              profileTrigger.textContent = loggedInUser;
-              profileTrigger.href = "giaodiennguoidung.html"; 
-  
-              // 3. Xử lý logic Dropdown (Tạo nút Đăng xuất)
-              const logoutButton = document.createElement('a');
-              logoutButton.textContent = 'Đăng xuất';
-              logoutButton.href = '#';
-              logoutButton.className = 'logout-dropdown-link';
-              
-              const dropdownContainer = document.createElement('div');
-              dropdownContainer.className = 'profile-dropdown-content';
-              dropdownContainer.style.cssText = 'position: absolute; background: #333; z-index: 10; min-width: 150px; padding: 5px; border-radius: 4px; top: 100%; right: 0; display: none;';
-              
-              dropdownContainer.appendChild(logoutButton);
-              profileTrigger.parentElement.style.position = 'relative'; 
-              profileTrigger.parentElement.appendChild(dropdownContainer);
-              
-              logoutButton.style.cssText = 'color: #fff; text-decoration: none; display: block; padding: 8px 10px; text-align: center;';
-  
-              // Xử lý hover
-              profileTrigger.parentElement.addEventListener('mouseenter', () => {
-                  dropdownContainer.style.display = 'block';
-              });
-              profileTrigger.parentElement.addEventListener('mouseleave', () => {
-                  dropdownContainer.style.display = 'none';
-              });
-  
-              // ✅ Xử lý Đăng xuất bằng SweetAlert2
-              logoutButton.addEventListener("click", (e) => {
-                  e.preventDefault();
-                  Swal.fire({
-                      title: `Chào ${loggedInUser}!`,
-                      text: "Bạn có chắc chắn muốn đăng xuất không?",
-                      icon: 'question',
-                      showCancelButton: true,
-                      confirmButtonColor: '#d33', // Màu đỏ cho Đăng xuất
-                      cancelButtonColor: '#3085d6',
-                      confirmButtonText: 'Đăng xuất',
-                      cancelButtonText: 'Hủy'
-                  }).then((result) => {
-                      if (result.isConfirmed) {
-                          // Xóa thông tin đăng nhập
-                          localStorage.removeItem("loggedInUser");
-                          localStorage.removeItem("username");
-                          
-                          // Hiển thị thông báo đăng xuất thành công (Toast)
-                          Swal.fire({
-                              icon: 'success',
-                              title: 'Đã đăng xuất!',
-                              text: 'Bạn sẽ được chuyển hướng đến trang đăng nhập.',
-                              showConfirmButton: false,
-                              timer: 1500,
-                              toast: true,
-                              position: 'top-end'
-                          });
+  document.addEventListener("DOMContentLoaded", () => {
+      // Tìm phần tử kích hoạt profile (username/Đăng nhập button)
+      const profileTrigger = document.querySelector(".order_online");
+  
+      // Lấy tên đăng nhập
+      const loggedInUser = localStorage.getItem("loggedInUser") || localStorage.getItem("username"); 
+  
+      if (profileTrigger) {
+          if (loggedInUser) {
+              // ✅ CHẾ ĐỘ ĐÃ ĐĂNG NHẬP
+              profileTrigger.textContent = loggedInUser;
+              profileTrigger.href = "giaodiennguoidung.html"; 
+  
+              // 3. Xử lý logic Dropdown (Tạo nút Đăng xuất)
+              const logoutButton = document.createElement('a');
+              logoutButton.textContent = 'Đăng xuất';
+              logoutButton.href = '#';
+              logoutButton.className = 'logout-dropdown-link';
+              
+              const dropdownContainer = document.createElement('div');
+              dropdownContainer.className = 'profile-dropdown-content';
+              dropdownContainer.style.cssText = 'position: absolute; background: #333; z-index: 10; min-width: 150px; padding: 5px; border-radius: 4px; top: 100%; right: 0; display: none;';
+              
+              dropdownContainer.appendChild(logoutButton);
+              profileTrigger.parentElement.style.position = 'relative'; 
+              profileTrigger.parentElement.appendChild(dropdownContainer);
+              
+              logoutButton.style.cssText = 'color: #fff; text-decoration: none; display: block; padding: 8px 10px; text-align: center;';
+  
+              // Xử lý hover
+              profileTrigger.parentElement.addEventListener('mouseenter', () => {
+                  dropdownContainer.style.display = 'block';
+              });
+              profileTrigger.parentElement.addEventListener('mouseleave', () => {
+                  dropdownContainer.style.display = 'none';
+              });
+  
+              // ✅ Xử lý Đăng xuất bằng SweetAlert2
+              logoutButton.addEventListener("click", (e) => {
+                  e.preventDefault();
+                  Swal.fire({
+                      title: `Chào ${loggedInUser}!`,
+                      text: "Bạn có chắc chắn muốn đăng xuất không?",
+                      icon: 'question',
+                      showCancelButton: true,
+                      confirmButtonColor: '#d33', // Màu đỏ cho Đăng xuất
+                      cancelButtonColor: '#3085d6',
+                      confirmButtonText: 'Đăng xuất',
+                      cancelButtonText: 'Hủy'
+                  }).then((result) => {
+                      if (result.isConfirmed) {
+                          // Xóa thông tin đăng nhập
+                          localStorage.removeItem("loggedInUser");
+                          localStorage.removeItem("username");
+                          
+                          // Hiển thị thông báo đăng xuất thành công (Toast)
+                          Swal.fire({
+                              icon: 'success',
+                              title: 'Đã đăng xuất!',
+                              text: 'Bạn sẽ được chuyển hướng đến trang đăng nhập.',
+                              showConfirmButton: false,
+                              timer: 1500,
+                              toast: true,
+                              position: 'top-end'
+                          });
 
-                          // Chuyển hướng sau 1.5 giây
-                          setTimeout(() => {
-                              window.location.href = "index.html"; 
-                          }, 1500);
-                      }
-                  });
-              });
-  
-          } else {
-              // ✅ CHẾ ĐỘ CHƯA ĐĂNG NHẬP
-              profileTrigger.textContent = "Đăng nhập";
-              profileTrigger.href = "index.html"; // Chuyển đến trang login khi click
-          }
-      }
-      // Gọi hàm cập nhật số lượng giỏ hàng khi trang tải
-      updateCartCount();
-  });
+                          // Chuyển hướng sau 1.5 giây
+                          setTimeout(() => {
+                              window.location.href = "index.html"; 
+                          }, 1500);
+                      }
+                  });
+              });
+  
+          } else {
+              // ✅ CHẾ ĐỘ CHƯA ĐĂNG NHẬP
+              profileTrigger.textContent = "Đăng nhập";
+              profileTrigger.href = "index.html"; // Chuyển đến trang login khi click
+          }
+      }
+      // Gọi hàm cập nhật số lượng giỏ hàng khi trang tải
+      updateCartCount();
+  });
 </script>
 
 <script>
@@ -308,9 +342,23 @@
         <li data-filter=".pasta">Pasta</li>
         <li data-filter=".fries">Fries</li>
       </ul>
+      
+      <!-- THANH TÌM KIẾM -->
+      <div class="search-container">
+        <div class="search-box">
+          <input type="text" class="search-input" id="menu-search" placeholder="Tìm kiếm món ăn...">
+          <button class="search-button" type="button" id="search-btn">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="search-results-info" id="search-results-info" style="display: none;">
+        <!-- Thông tin kết quả tìm kiếm sẽ hiển thị ở đây -->
+      </div>
   
       <div class="filters-content">
-        <div class="row grid">
+        <div class="row grid" id="menu-items">
           <div class="col-sm-6 col-lg-4 all pizza">
             <div class="box">
               <div>
@@ -849,100 +897,157 @@
   <!-- End Google Map -->
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
-    <script>
-        // --- KHAI BÁO CÁC HÀM XỬ LÝ LOCALSTORAGE VÀ CẬP NHẬT COUNT ---
-        // Cần định nghĩa lại getCart và saveCart ở đây để đảm bảo các hàm dưới sử dụng được
-        function getCart() {
-            const cart = localStorage.getItem('cart');
-            return cart ? JSON.parse(cart) : [];
-        }
-    
-        function saveCart(cart) {
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-    
-      // updateCartCount đã được định nghĩa ở đầu trang
-    
-        // --- HÀM MỚI: XỬ LÝ KHI NHẤN NÚT THÊM VÀO GIỎ HÀNG TRÊN MENU ---
-        function addToCartMenu(event) {
-            event.preventDefault(); 
-    
-            const button = event.currentTarget;
-            const box = button.closest('.box'); // Tìm thẻ chứa sản phẩm (.box)
-            
-            // 1. Lấy ID
-            const id = button.getAttribute('data-id');
-            
-            // 2. Lấy Tên sản phẩm
-            const name = box.querySelector('.detail-box h5 a').textContent.trim();
-            
-            // 3. Lấy Giá sản phẩm
-            const priceElement = box.querySelector('.detail-box h6');
-            const priceText = priceElement.textContent.trim();
-            
-            // Loại bỏ ký tự VNĐ, dấu chấm và khoảng trắng để lấy số nguyên
-            const priceCleaned = priceText.replace(/[.VNĐ₫ ]/g, '');
-            const price = parseInt(priceCleaned);
-            
-            // 4. Lấy hình ảnh
-            const image = box.querySelector('.img-box img').getAttribute('src'); 
-    
-            // Kiểm tra tính hợp lệ
-            if (!id || isNaN(price) || price === 0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Không thể trích xuất giá hoặc ID sản phẩm. Vui lòng kiểm tra định dạng giá (129.000 VNĐ).',
-                });
-                return;
-            }
-    
-            let cart = getCart();
-            const existingItem = cart.find(item => item.id === id);
-    
-            if (existingItem) {
-                existingItem.quantity += 1; // Thêm 1 sản phẩm
-            } else {
-                const item = {
-                    id: id,
-                    name: name,
-                    price: price,
-                    quantity: 1,
-                    image: image 
-                };
-                cart.push(item);
-            }
-    
-            saveCart(cart);
-            // Cập nhật số lượng trên header
-            if (typeof updateCartCount === 'function') {
-              updateCartCount(); 
-            }
-            
-            // Hiển thị hộp thoại SweetAlert2 thành công
-            Swal.fire({
-                icon: 'success',
-                title: 'Đã thêm vào giỏ hàng!',
-                text: `${name} (1 sản phẩm) đã được thêm vào giỏ.`,
-                showConfirmButton: false,
-                timer: 1800,
-                toast: true,
-                position: 'top-end'
-            });
-        }
-    
-        // --- LOGIC KHỞI TẠO KHI TRANG TẢI XONG ---
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. Lắng nghe tất cả các nút Thêm vào giỏ hàng trên trang Menu/Trang chủ
-            const menuButtons = document.querySelectorAll('.add-to-cart-btn');
-            menuButtons.forEach(button => {
-                button.addEventListener('click', addToCartMenu);
-            });
-            
-            // updateCartCount() đã được gọi trong script ở header, nên không cần gọi lại ở đây
-        });
-    </script>
-</body>
+  
+  <!-- Script xử lý tìm kiếm ĐÃ SỬA -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('menu-search');
+      const searchBtn = document.getElementById('search-btn');
+      const searchResultsInfo = document.getElementById('search-results-info');
+      const allMenuItems = document.querySelectorAll('.col-sm-6.col-lg-4.all');
+      
+      // Hàm tìm kiếm món ăn
+      function performSearch() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        let foundItems = 0;
+        
+        if (searchTerm === '') {
+          // Hiển thị tất cả món ăn nếu không có từ khóa tìm kiếm
+          allMenuItems.forEach(item => {
+            item.style.display = 'block';
+          });
+          searchResultsInfo.style.display = 'none';
+          return;
+        }
+        
+        // Lọc món ăn theo từ khóa
+        allMenuItems.forEach(item => {
+          const itemName = item.querySelector('h5 a').textContent.toLowerCase();
+          const itemDescription = item.querySelector('p').textContent.toLowerCase();
+          
+          if (itemName.includes(searchTerm) || itemDescription.includes(searchTerm)) {
+            item.style.display = 'block';
+            foundItems++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        // Hiển thị thông tin kết quả tìm kiếm
+        if (foundItems > 0) {
+          searchResultsInfo.innerHTML = `Tìm thấy ${foundItems} kết quả cho từ khóa "<strong>${searchTerm}</strong>"`;
+          searchResultsInfo.style.display = 'block';
+        } else {
+          searchResultsInfo.innerHTML = `
+            <div class="no-results">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <h4>Không tìm thấy kết quả</h4>
+              <p>Không có món ăn nào phù hợp với từ khóa "<strong>${searchTerm}</strong>"</p>
+            </div>
+          `;
+          searchResultsInfo.style.display = 'block';
+        }
+      }
+      
+      // Sự kiện khi nhấn nút tìm kiếm
+      searchBtn.addEventListener('click', performSearch);
+      
+      // Sự kiện khi nhấn phím Enter trong ô tìm kiếm
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          performSearch();
+        }
+      });
+      
+      // Sự kiện khi nhập liệu (tìm kiếm real-time)
+      let searchTimeout;
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(performSearch, 300);
+      });
 
+      // --- KHAI BÁO CÁC HÀM XỬ LÝ LOCALSTORAGE VÀ CẬP NHẬT COUNT ---
+      function getCart() {
+          const cart = localStorage.getItem('cart');
+          return cart ? JSON.parse(cart) : [];
+      }
+
+      function saveCart(cart) {
+          localStorage.setItem('cart', JSON.stringify(cart));
+      }
+
+      // --- HÀM MỚI: XỬ LÝ KHI NHẤN NÚT THÊM VÀO GIỎ HÀNG TRÊN MENU ---
+      function addToCartMenu(event) {
+          event.preventDefault(); 
+
+          const button = event.currentTarget;
+          const box = button.closest('.box');
+          
+          // 1. Lấy ID
+          const id = button.getAttribute('data-id');
+          
+          // 2. Lấy Tên sản phẩm
+          const name = box.querySelector('.detail-box h5 a').textContent.trim();
+          
+          // 3. Lấy Giá sản phẩm
+          const priceElement = box.querySelector('.detail-box h6');
+          const priceText = priceElement.textContent.trim();
+          
+          // Loại bỏ ký tự VNĐ, dấu chấm và khoảng trắng để lấy số nguyên
+          const priceCleaned = priceText.replace(/[.VNĐ₫ ]/g, '');
+          const price = parseInt(priceCleaned);
+          
+          // 4. Lấy hình ảnh
+          const image = box.querySelector('.img-box img').getAttribute('src'); 
+
+          // Kiểm tra tính hợp lệ
+          if (!id || isNaN(price) || price === 0) {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Lỗi',
+                  text: 'Không thể trích xuất giá hoặc ID sản phẩm. Vui lòng kiểm tra định dạng giá (129.000 VNĐ).',
+              });
+              return;
+          }
+
+          let cart = getCart();
+          const existingItem = cart.find(item => item.id === id);
+
+          if (existingItem) {
+              existingItem.quantity += 1;
+          } else {
+              const item = {
+                  id: id,
+                  name: name,
+                  price: price,
+                  quantity: 1,
+                  image: image 
+              };
+              cart.push(item);
+          }
+
+          saveCart(cart);
+          if (typeof updateCartCount === 'function') {
+            updateCartCount(); 
+          }
+          
+          Swal.fire({
+              icon: 'success',
+              title: 'Đã thêm vào giỏ hàng!',
+              text: `${name} (1 sản phẩm) đã được thêm vào giỏ.`,
+              showConfirmButton: false,
+              timer: 1800,
+              toast: true,
+              position: 'top-end'
+          });
+      }
+
+      // Lắng nghe tất cả các nút Thêm vào giỏ hàng
+      const menuButtons = document.querySelectorAll('.add-to-cart-btn');
+      menuButtons.forEach(button => {
+          button.addEventListener('click', addToCartMenu);
+      });
+    });
+  </script>
+</body>
 </html>

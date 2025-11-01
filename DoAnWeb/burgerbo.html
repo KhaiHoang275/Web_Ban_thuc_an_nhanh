@@ -89,43 +89,9 @@
             </svg>
           </a>
 
-          <div class="search-container">
-            <!-- Ô tìm kiếm -->
-            <input type="text" id="search-box" placeholder="Tìm kiếm...">
-
-            <!-- Nút tìm kiếm bên phải trong ô -->
-            <button type="button" id="inner-search-btn">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-
-            <!-- Nút mở/đóng thanh tìm kiếm -->
-            <button type="button" class="btn my-2 my-sm-0 nav_search-btn" id="search-btn">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-          </div>
-
-          <script>
-            const toggleBtn = document.getElementById('search-btn');
-            const searchBox = document.getElementById('search-box');
-            const innerSearch = document.getElementById('inner-search-btn');
-
-            // Mở/đóng thanh tìm kiếm
-            toggleBtn.addEventListener('click', function () {
-              searchBox.classList.toggle('active');
-              if (searchBox.classList.contains('active')) {
-                searchBox.focus();
-              }
-            });
-
-            // Hành động khi bấm nút tìm kiếm bên trong
-            innerSearch.addEventListener('click', function () {
-              const value = searchBox.value.trim();
-              if (value) {
-                alert('Bạn vừa tìm: ' + value);
-                // Ở đây bạn có thể thay alert bằng code tìm kiếm thật
-              }
-            });
-          </script>
+          <a href="menu.html" class="btn my-2 my-sm-0 nav_search-btn">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </a>
 
           <!-- ✅ Nút đăng nhập / hiển thị tên -->
           <a id="loginButton" href="index.html" class="order_online">Đăng nhập</a>
