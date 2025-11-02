@@ -268,40 +268,40 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form_container">
-            <form action="">
+            <form id="bookingForm" action="">
               <div>
-                <input type="text" class="form-control" placeholder="Họ và tên" />
+                <input type="text" class="form-control" placeholder="Họ và tên" id="fullName" required />
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="Số điện thoại" />
+                <input type="text" class="form-control" placeholder="Số điện thoại" id="phoneNumber" required />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" />
+                <input type="email" class="form-control" placeholder="Email" id="email" required />
               </div>
               <div>
-                <select class="form-control nice-select wide">
+                <select class="form-control nice-select wide" id="numberOfPeople" required>
                   <option value="" disabled selected>
                     Có bao nhiêu người?
                   </option>
-                  <option value="">
+                  <option value="2">
                     2
                   </option>
-                  <option value="">
+                  <option value="3">
                     3
                   </option>
-                  <option value="">
+                  <option value="4">
                     4
                   </option>
-                  <option value="">
+                  <option value="5">
                     5
                   </option>
                 </select>
               </div>
               <div>
-                <input type="date" class="form-control">
+                <input type="date" class="form-control" id="bookingDate" required>
               </div>
               <div class="btn_box">
-                <button>
+                <button type="submit">
                   Đặt ngay
                 </button>
               </div>
@@ -507,6 +507,54 @@
               menuButtons.forEach(button => {
                   button.addEventListener('click', addToCartMenu);
               });
+              
+              // 2. Xử lý form đặt bàn
+              const bookingForm = document.getElementById('bookingForm');
+              if (bookingForm) {
+                  bookingForm.addEventListener('submit', function(e) {
+                      e.preventDefault();
+                      
+                      // Lấy giá trị từ form
+                      const fullName = document.getElementById('fullName').value;
+                      const phoneNumber = document.getElementById('phoneNumber').value;
+                      const email = document.getElementById('email').value;
+                      const numberOfPeople = document.getElementById('numberOfPeople').value;
+                      const bookingDate = document.getElementById('bookingDate').value;
+                      
+                      // Kiểm tra xem tất cả các trường đã được điền
+                      if (!fullName || !phoneNumber || !email || !numberOfPeople || !bookingDate) {
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Thiếu thông tin',
+                              text: 'Vui lòng điền đầy đủ thông tin đặt bàn.',
+                          });
+                          return;
+                      }
+                      
+                      // Hiển thị thông báo thành công
+                      Swal.fire({
+                          icon: 'success',
+                          title: 'Đặt bàn thành công!',
+                          html: `
+                              <p>Cảm ơn <strong>${fullName}</strong> đã đặt bàn tại KHK Restaurant!</p>
+                              <p>Thông tin đặt bàn:</p>
+                              <ul style="text-align: left;">
+                                  <li>Số điện thoại: ${phoneNumber}</li>
+                                  <li>Email: ${email}</li>
+                                  <li>Số người: ${numberOfPeople}</li>
+                                  <li>Ngày đặt: ${bookingDate}</li>
+                              </ul>
+                              <p>Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận.</p>
+                          `,
+                          confirmButtonText: 'OK'
+                      }).then((result) => {
+                          if (result.isConfirmed) {
+                              // Reset form sau khi đặt bàn thành công
+                              bookingForm.reset();
+                          }
+                      });
+                  });
+              }
               
               // updateCartCount() đã được gọi trong script ở header, nên không cần gọi lại ở đây
           });
