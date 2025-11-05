@@ -901,34 +901,54 @@
       const searchResultsInfo = document.getElementById('search-results-info');
       const allMenuItems = document.querySelectorAll('.col-sm-6.col-lg-4.all');
       
-      // Hàm tìm kiếm món ăn
+      // ✅ BƯỚC 1: Lấy đối tượng grid của Isotope (vì trang này dùng Isotope)
+      // Chúng ta dùng jQuery ở đây vì Isotope là một plugin của jQuery
+      const $grid = $('#menu-items'); 
+
+      // Hàm tìm kiếm món ăn (ĐÃ SỬA)
       function performSearch() {
         const searchTerm = searchInput.value.trim().toLowerCase();
         let foundItems = 0;
-        
+
         if (searchTerm === '') {
-          // Hiển thị tất cả món ăn nếu không có từ khóa tìm kiếm
+          // Nếu không tìm kiếm, xóa class và reset Isotope về "All"
           allMenuItems.forEach(item => {
-            item.style.display = 'block';
+            item.classList.remove('search-match');
           });
+          
+          // Reset Isotope filter
+          $grid.isotope({ filter: '*' }); 
+          
+          // Hiển thị lại nút "All" đang active
+          $('.filters_menu li').removeClass('active');
+          $('.filters_menu li[data-filter="*"]').addClass('active');
+          
           searchResultsInfo.style.display = 'none';
           return;
         }
-        
-        // Lọc món ăn theo từ khóa
+
+        // ✅ BƯỚC 2: Lặp qua các item, thêm/xóa class .search-match
+        // (Thay vì dùng style.display)
         allMenuItems.forEach(item => {
           const itemName = item.querySelector('h5 a').textContent.toLowerCase();
           const itemDescription = item.querySelector('p').textContent.toLowerCase();
-          
+
           if (itemName.includes(searchTerm) || itemDescription.includes(searchTerm)) {
-            item.style.display = 'block';
+            item.classList.add('search-match');
             foundItems++;
           } else {
-            item.style.display = 'none';
+            item.classList.remove('search-match');
           }
         });
+
+        // ✅ BƯỚC 3: Yêu cầu Isotope lọc và SẮP XẾP LẠI theo class
+        // Đây chính là bước quan trọng để "đưa sản phẩm lên"
+        $grid.isotope({ filter: '.search-match' });
         
-        // Hiển thị thông tin kết quả tìm kiếm
+        // Bỏ active của các nút category (Burger, Pizza,...)
+        $('.filters_menu li').removeClass('active');
+        
+        // ✅ BƯỚC 4: Hiển thị thông tin (giữ nguyên)
         if (foundItems > 0) {
           searchResultsInfo.innerHTML = `Tìm thấy ${foundItems} kết quả cho từ khóa "<strong>${searchTerm}</strong>"`;
           searchResultsInfo.style.display = 'block';
@@ -944,103 +964,92 @@
         }
       }
       
-      // Sự kiện khi nhấn nút tìm kiếm
+      // Sự kiện khi nhấn nút tìm kiếm (Giữ nguyên)
       searchBtn.addEventListener('click', performSearch);
       
-      // Sự kiện khi nhấn phím Enter trong ô tìm kiếm
+      // Sự kiện khi nhấn phím Enter trong ô tìm kiếm (Giữ nguyên)
       searchInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
           performSearch();
         }
       });
       
-      // Sự kiện khi nhập liệu (tìm kiếm real-time)
+      // Sự kiện khi nhập liệu (tìm kiếm real-time) (Giữ nguyên)
       let searchTimeout;
       searchInput.addEventListener('input', function() {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(performSearch, 300);
       });
 
-      // --- KHAI BÁO CÁC HÀM XỬ LÝ LOCALSTORAGE VÀ CẬP NHẬT COUNT ---
+      // --- PHẦN CODE XỬ LÝ GIỎ HÀNG (Giữ nguyên) ---
+      // (Mình rút gọn phần này cho dễ nhìn, bạn chỉ cần copy cả khối script)
+      
       function getCart() {
-          const cart = localStorage.getItem('cart');
-          return cart ? JSON.parse(cart) : [];
+        const cart = localStorage.getItem('cart');
+        return cart ? JSON.parse(cart) : [];
       }
 
       function saveCart(cart) {
-          localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
       }
 
-      // --- HÀM MỚI: XỬ LÝ KHI NHẤN NÚT THÊM VÀO GIỎ HÀNG TRÊN MENU ---
       function addToCartMenu(event) {
-          event.preventDefault(); 
+        event.preventDefault(); 
+        const button = event.currentTarget;
+        const box = button.closest('.box');
+        
+        const id = button.getAttribute('data-id');
+        const name = box.querySelector('.detail-box h5 a').textContent.trim();
+        const priceElement = box.querySelector('.detail-box h6');
+        const priceText = priceElement.textContent.trim();
+        const priceCleaned = priceText.replace(/[.VNĐ₫ ]/g, '');
+        const price = parseInt(priceCleaned);
+        const image = box.querySelector('.img-box img').getAttribute('src'); 
 
-          const button = event.currentTarget;
-          const box = button.closest('.box');
-          
-          // 1. Lấy ID
-          const id = button.getAttribute('data-id');
-          
-          // 2. Lấy Tên sản phẩm
-          const name = box.querySelector('.detail-box h5 a').textContent.trim();
-          
-          // 3. Lấy Giá sản phẩm
-          const priceElement = box.querySelector('.detail-box h6');
-          const priceText = priceElement.textContent.trim();
-          
-          // Loại bỏ ký tự VNĐ, dấu chấm và khoảng trắng để lấy số nguyên
-          const priceCleaned = priceText.replace(/[.VNĐ₫ ]/g, '');
-          const price = parseInt(priceCleaned);
-          
-          // 4. Lấy hình ảnh
-          const image = box.querySelector('.img-box img').getAttribute('src'); 
-
-          // Kiểm tra tính hợp lệ
-          if (!id || isNaN(price) || price === 0) {
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Lỗi',
-                  text: 'Không thể trích xuất giá hoặc ID sản phẩm. Vui lòng kiểm tra định dạng giá (129.000 VNĐ).',
-              });
-              return;
-          }
-
-          let cart = getCart();
-          const existingItem = cart.find(item => item.id === id);
-
-          if (existingItem) {
-              existingItem.quantity += 1;
-          } else {
-              const item = {
-                  id: id,
-                  name: name,
-                  price: price,
-                  quantity: 1,
-                  image: image 
-              };
-              cart.push(item);
-          }
-
-          saveCart(cart);
-          if (typeof updateCartCount === 'function') {
-            updateCartCount(); 
-          }
-          
+        if (!id || isNaN(price) || price === 0) {
           Swal.fire({
-              icon: 'success',
-              title: 'Đã thêm vào giỏ hàng!',
-              text: `${name} (1 sản phẩm) đã được thêm vào giỏ.`,
-              showConfirmButton: false,
-              timer: 1800,
-              toast: true,
-              position: 'top-end'
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Không thể trích xuất giá hoặc ID sản phẩm.',
           });
+          return;
+        }
+
+        let cart = getCart();
+        const existingItem = cart.find(item => item.id === id);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          const item = {
+            id: id,
+            name: name,
+            price: price,
+            quantity: 1,
+            image: image 
+          };
+          cart.push(item);
+        }
+
+        saveCart(cart);
+        if (typeof updateCartCount === 'function') {
+          updateCartCount(); 
+        }
+        
+        Swal.fire({
+          icon: 'success',
+          title: 'Đã thêm vào giỏ hàng!',
+          text: `${name} (1 sản phẩm) đã được thêm vào giỏ.`,
+          showConfirmButton: false,
+          timer: 1800,
+          toast: true,
+          position: 'top-end'
+        });
       }
 
-      // Lắng nghe tất cả các nút Thêm vào giỏ hàng
       const menuButtons = document.querySelectorAll('.add-to-cart-btn');
       menuButtons.forEach(button => {
-          button.addEventListener('click', addToCartMenu);
+        button.addEventListener('click', addToCartMenu);
       });
     });
   </script>
