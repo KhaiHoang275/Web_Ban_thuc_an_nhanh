@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glass Morphism Register</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="">
+    <link rel="stylesheet" href="login/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+  </head>
+
+  <body>
+    <div class="glass-container">
+      <h2>Register</h2>
+      <form id="registerForm">
+        <div class="input-group">
+          <input type="text" id="regUsername" required />
+          <label>Username</label>
+        </div>
+
+        <div class="input-group">
+          <input type="email" id="regEmail" required />
+          <label>Email</label>
+        </div>
+
+        <div class="input-group">
+          <input type="password" id="regPassword" required />
+          <label>Password</label>
+        </div>
+
+        <div class="input-group">
+          <input type="password" id="regConfirm" required />
+          <label>Confirm Password</label>
+        </div>
+
+        <button type="submit" class="Login-btn">Register</button>
+
+        <div class="register-link">
+          <p>Already have an account? <a href="index.html">Login</a></p>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // Hàm hiển thị SweetAlert tùy chỉnh (Toast)
+      function showAlert(icon, title, text) {
+          Swal.fire({
+              icon: icon,
+              title: title,
+              text: text,
+              showConfirmButton: false,
+              timer: 2000,
+              toast: true,
+              position: 'top-end'
+          });
+      }
+      
+      document.getElementById("registerForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const username = document.getElementById("regUsername").value.trim();
+        const password = document.getElementById("regPassword").value.trim();
+        const confirm = document.getElementById("regConfirm").value.trim();
+
+        if (!username || !password || !confirm) {
+          // Thay thế alert() bằng SweetAlert2 cho lỗi thiếu thông tin
+          showAlert("warning", "Thiếu thông tin!", "Vui lòng nhập đủ Tên người dùng, Email và Mật khẩu!");
+          return;
+        }
+        if (password !== confirm) {
+          // Thay thế alert() bằng SweetAlert2 cho lỗi mật khẩu không khớp
+          showAlert("error", "Lỗi Mật khẩu!", "Mật khẩu xác nhận không khớp. Vui lòng thử lại.");
+          return;
+        }
+
+        // --- Giả lập tạo tài khoản thành công ---
+        
+        // Lưu tên người dùng và hiển thị thông báo thành công
+        localStorage.setItem("username", username);
+        showAlert("success", "Đăng ký thành công!", "Tự động đăng nhập và chuyển hướng...");
+        
+        // Chuyển hướng sau khi thông báo biến mất (2 giây)
+        setTimeout(() => {
+            window.location.href = "trangchu.html";
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
