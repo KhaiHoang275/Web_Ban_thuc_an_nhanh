@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý đặt bàn - Feane Admin</title>
+
+    <!-- Font Awesome & Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-color: #ffbe33;
+        --secondary-color: #222831;
+        --light-color: #ffffff;
+        --dark-color: #1a1a1a;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f8f9fa;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+        height: 100vh;
+        position: fixed;
+        width: 250px;
+        transition: all 0.3s;
+        z-index: 1000;
+      }
+
+      .sidebar-header {
+        padding: 20px;
+        background-color: var(--dark-color);
+      }
+
+      .sidebar-header h3 {
+        color: var(--primary-color);
+        margin: 0;
+      }
+
+      .sidebar ul.components {
+        padding: 20px 0;
+      }
+
+      .sidebar ul li a {
+        padding: 15px 20px;
+        display: block;
+        color: var(--light-color);
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .sidebar ul li a:hover {
+        background-color: var(--dark-color);
+        color: var(--primary-color);
+      }
+
+      .sidebar ul li.active a {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+      }
+
+      .sidebar ul li a i {
+        margin-right: 10px;
+      }
+      .sidebar-header h3 {
+        font-family: "Dancing Script", cursive; /* Đã thay đổi */
+        color: var(--primary-color);
+        margin: 0;
+      }
+
+      /* Content */
+      .content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+
+      h2 i {
+        color: var(--primary-color);
+        margin-right: 10px;
+      }
+      .table th {
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+      }
+
+      /* Cards & Buttons */
+      .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+
+      .btn-primary:hover {
+        background-color: #e69c00;
+        border-color: #e69c00;
+      }
+
+      .badge-success {
+        background-color: #28a745;
+      }
+      .badge-warning {
+        background-color: #ffc107;
+        color: #000;
+      }
+      .badge-danger {
+        background-color: #dc3545;
+      }
+
+      /* Breadcrumb */
+      .breadcrumb a {
+        text-decoration: none;
+        color: var(--primary-color);
+      }
+
+      /* Popup overlay */
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+      }
+
+      .popup:target {
+        display: flex;
+      }
+
+      .popup-content {
+        background: white;
+        padding: 25px 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        max-width: 400px;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .popup-actions {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .popup-content.success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .popup-content.danger {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Filter section */
+      .filter-card input,
+      .filter-card select {
+        border-radius: 8px;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(255, 190, 51, 0.25);
+      }
+
+      /* Stats */
+      .stat-card {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .stat-card i {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+      .stat-card .number {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .stat-card .label {
+        color: #6c757d;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h3><i class="fas fa-utensils"></i> KHK RESTAURANT ADMIN</h3>
+      </div>
+      <ul class="list-unstyled components">
+        <li>
+          <a href="admin.html"
+            ><i class="fas fa-tachometer-alt"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="menumanagement.html"
+            ><i class="fas fa-list"></i> Quản lý Menu</a
+          >
+        </li>
+        <li>
+          <a href="orders.html"
+            ><i class="fas fa-shopping-cart"></i> Đơn hàng</a
+          >
+        </li>
+        <li class="active">
+          <a href="bookingdetail.html"
+            ><i class="fas fa-calendar-alt"></i> Đặt bàn</a
+          >
+        </li>
+        <li>
+          <a href="customers.html"><i class="fas fa-users"></i> Khách hàng</a>
+        </li>
+        <li>
+          <a href="report.html"><i class="fas fa-chart-bar"></i> Báo cáo</a>
+        </li>
+        <li>
+          <a href="setting.html"><i class="fas fa-cog"></i> Cài đặt</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <div class="container-fluid">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2><i class="fas fa-calendar-alt"></i>Quản lý đặt bàn</h2>
+          <a href="#addBooking" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Thêm đặt bàn
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <div class="card stat-card">
+              <i class="fas fa-calendar-check"></i>
+              <div class="number">8</div>
+              <div class="label">Đặt bàn hôm nay</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card stat-card">
+              <i class="fas fa-clock"></i>
+              <div class="number">5</div>
+              <div class="label">Đang chờ xác nhận</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card stat-card">
+              <i class="fas fa-users"></i>
+              <div class="number">120</div>
+              <div class="label">Tổng số đặt bàn</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter -->
+        <div class="card filter-card mb-4">
+          <div class="card-body">
+            <form class="row g-3">
+              <div class="col-md-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Tìm khách hàng..."
+                />
+              </div>
+              <div class="col-md-3">
+                <select class="form-select">
+                  <option value="">Trạng thái</option>
+                  <option>Đã xác nhận</option>
+                  <option>Chờ xác nhận</option>
+                  <option>Đã hủy</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <input type="date" class="form-control" />
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-primary w-100">
+                  <i class="fas fa-search"></i> Lọc kết quả
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="card">
+          <div class="card-body">
+            <table class="table table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>Mã</th>
+                  <th>Khách hàng</th>
+                  <th>Số người</th>
+                  <th>Giờ</th>
+                  <th>Bàn số</th>
+                  <th>Ngày tạo</th>
+                  <th>Trạng thái</th>
+                  <th>Ghi chú</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#BK001</td>
+                  <td>Nguyễn Văn A</td>
+                  <td>4</td>
+                  <td>19:00 - 24/10/2025</td>
+                  <td>5</td>
+                  <td>22/10/2025</td>
+                  <td>
+                    <span class="badge badge-success"
+                      ><i class="fas fa-check-circle"></i> Đã xác nhận</span
+                    >
+                  </td>
+                  <td>Khách đặt trước 2 ngày</td>
+                  <td>
+                    <a
+                      href="#editBooking"
+                      class="btn btn-sm btn-outline-primary"
+                      ><i class="fas fa-edit"></i
+                    ></a>
+                    <a
+                      href="#deleteConfirm"
+                      class="btn btn-sm btn-outline-danger"
+                      ><i class="fas fa-trash"></i
+                    ></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#BK002</td>
+                  <td>Trần Thị B</td>
+                  <td>2</td>
+                  <td>20:00 - 25/10/2025</td>
+                  <td>3</td>
+                  <td>23/10/2025</td>
+                  <td>
+                    <span class="badge badge-warning"
+                      ><i class="fas fa-clock"></i> Chờ xác nhận</span
+                    >
+                  </td>
+                  <td>Yêu cầu bàn gần cửa sổ</td>
+                  <td>
+                    <a
+                      href="#editBooking"
+                      class="btn btn-sm btn-outline-primary"
+                      ><i class="fas fa-edit"></i
+                    ></a>
+                    <a
+                      href="#deleteConfirm"
+                      class="btn btn-sm btn-outline-danger"
+                      ><i class="fas fa-trash"></i
+                    ></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup thêm / chỉnh sửa / xác nhận / thông báo -->
+    <div id="addBooking" class="popup">
+      <div class="popup-content">
+        <h5>Thêm đặt bàn mới</h5>
+        <form>
+          <div class="mb-3 text-start">
+            <label class="form-label">Tên khách hàng</label>
+            <input type="text" class="form-control" required />
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Số người</label>
+            <input type="number" class="form-control" min="1" required />
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Thời gian</label>
+            <input type="datetime-local" class="form-control" required />
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Bàn số</label>
+            <input type="number" class="form-control" min="1" required />
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Trạng thái</label>
+            <select class="form-select">
+              <option>Đã xác nhận</option>
+              <option>Chờ xác nhận</option>
+              <option>Đã hủy</option>
+            </select>
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Ghi chú</label>
+            <textarea
+              class="form-control"
+              rows="2"
+              placeholder="Ví dụ: cần bàn gần cửa sổ"
+            ></textarea>
+          </div>
+          <div class="popup-actions">
+            <a href="#" class="btn btn-secondary">Hủy</a>
+            <a href="#addSuccess" class="btn btn-primary">Lưu</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="editBooking" class="popup">
+      <div class="popup-content">
+        <h5>Chỉnh sửa đặt bàn</h5>
+        <form>
+          <div class="mb-3 text-start">
+            <label class="form-label">Tên khách hàng</label>
+            <input type="text" class="form-control" value="Nguyễn Văn A" />
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Số người</label>
+            <input type="number" class="form-control" value="4" />
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Thời gian</label>
+            <input type="datetime-local" class="form-control" />
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Bàn số</label>
+            <input type="number" class="form-control" value="5" />
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Trạng thái</label>
+            <select class="form-select">
+              <option selected>Đã xác nhận</option>
+              <option>Chờ xác nhận</option>
+              <option>Đã hủy</option>
+            </select>
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Ghi chú</label>
+            <textarea
+              class="form-control"
+              rows="2"
+              placeholder="Ví dụ: cần bàn gần cửa sổ"
+            ></textarea>
+          </div>
+          <div class="popup-actions">
+            <a href="#" class="btn btn-secondary">Hủy</a>
+            <a href="#editSuccess" class="btn btn-primary">Lưu thay đổi</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="deleteConfirm" class="popup">
+      <div class="popup-content danger">
+        <h5>Bạn có chắc muốn xóa đặt bàn này?</h5>
+        <p>Hành động này không thể hoàn tác.</p>
+        <div class="popup-actions">
+          <a href="#" class="btn btn-secondary">Hủy</a>
+          <a href="#deleteSuccess" class="btn btn-danger">Xóa</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="addSuccess" class="popup">
+      <div class="popup-content success">
+        ✅ Thêm đặt bàn thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="editSuccess" class="popup">
+      <div class="popup-content success">
+        ✏️ Cập nhật đặt bàn thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="deleteSuccess" class="popup">
+      <div class="popup-content success">
+        🗑️ Xóa đặt bàn thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
