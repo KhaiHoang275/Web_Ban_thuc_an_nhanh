@@ -99,6 +99,7 @@
 </header>
 
 <!-- Script kiểm tra đăng nhập -->
+<!-- Script kiểm tra đăng nhập -->
 <script>
   // --- HÀM XỬ LÝ DỮ LIỆU GIỎ HÀNG VÀ CẬP NHẬT COUNT ---
   function getCart() {
@@ -147,112 +148,91 @@
   }
   // --- HẾT HÀM CẬP NHẬT SỐ LƯỢNG ---
 
-  document.addEventListener("DOMContentLoaded", () => {
-      // Tìm phần tử kích hoạt profile (username/Đăng nhập button)
-      const profileTrigger = document.querySelector(".order_online");
-  
-      // Lấy tên đăng nhập
-      const loggedInUser = localStorage.getItem("loggedInUser") || localStorage.getItem("username"); 
-  
-      if (profileTrigger) {
-          if (loggedInUser) {
-              // ✅ CHẾ ĐỘ ĐÃ ĐĂNG NHẬP
-              profileTrigger.textContent = loggedInUser;
-              profileTrigger.href = "giaodiennguoidung.html"; 
-  
-              // 3. Xử lý logic Dropdown (Tạo nút Đăng xuất)
-              const logoutButton = document.createElement('a');
-              logoutButton.textContent = 'Đăng xuất';
-              logoutButton.href = '#';
-              logoutButton.className = 'logout-dropdown-link';
-              
-              const dropdownContainer = document.createElement('div');
-              dropdownContainer.className = 'profile-dropdown-content';
-              dropdownContainer.style.cssText = 'position: absolute; background: #333; z-index: 10; min-width: 150px; padding: 5px; border-radius: 4px; top: 100%; right: 0; display: none;';
-              
-              dropdownContainer.appendChild(logoutButton);
-              profileTrigger.parentElement.style.position = 'relative'; 
-              profileTrigger.parentElement.appendChild(dropdownContainer);
-              
-              logoutButton.style.cssText = 'color: #fff; text-decoration: none; display: block; padding: 8px 10px; text-align: center;';
-  
-              // Xử lý hover
-              profileTrigger.parentElement.addEventListener('mouseenter', () => {
-                  dropdownContainer.style.display = 'block';
-              });
-              profileTrigger.parentElement.addEventListener('mouseleave', () => {
-                  dropdownContainer.style.display = 'none';
-              });
-  
-              // ✅ Xử lý Đăng xuất bằng SweetAlert2
-              logoutButton.addEventListener("click", (e) => {
-                  e.preventDefault();
-                  Swal.fire({
-                      title: `Chào ${loggedInUser}!`,
-                      text: "Bạn có chắc chắn muốn đăng xuất không?",
-                      icon: 'question',
-                      showCancelButton: true,
-                      confirmButtonColor: '#d33', // Màu đỏ cho Đăng xuất
-                      cancelButtonColor: '#3085d6',
-                      confirmButtonText: 'Đăng xuất',
-                      cancelButtonText: 'Hủy'
-                  }).then((result) => {
-                      if (result.isConfirmed) {
-                          // Xóa thông tin đăng nhập
-                          localStorage.removeItem("loggedInUser");
-                          localStorage.removeItem("username");
-                          
-                          // Hiển thị thông báo đăng xuất thành công (Toast)
-                          Swal.fire({
-                              icon: 'success',
-                              title: 'Đã đăng xuất!',
-                              text: 'Bạn sẽ được chuyển hướng đến trang đăng nhập.',
-                              showConfirmButton: false,
-                              timer: 1500,
-                              toast: true,
-                              position: 'top-end'
-                          });
+  document.addEventListener("DOMContentLoaded", () => {
+      // Tìm phần tử kích hoạt profile (username/Đăng nhập button)
+      const profileTrigger = document.querySelector(".order_online");
+  
+      // Lấy tên đăng nhập
+      const loggedInUser = localStorage.getItem("loggedInUser") || localStorage.getItem("username"); 
+  
+      if (profileTrigger) {
+          if (loggedInUser) {
+              // ✅ CHẾ ĐỘ ĐÃ ĐĂNG NHẬP
+              profileTrigger.textContent = "Nguyễn Văn Tèo";
+              profileTrigger.href = "giaodiennguoidung.html"; 
+  
+              // 3. Xử lý logic Dropdown (Tạo nút Đăng xuất)
+              const logoutButton = document.createElement('a');
+              logoutButton.textContent = 'Đăng xuất';
+              logoutButton.href = '#';
+              logoutButton.className = 'logout-dropdown-link';
+              
+              const dropdownContainer = document.createElement('div');
+              dropdownContainer.className = 'profile-dropdown-content';
+              dropdownContainer.style.cssText = 'position: absolute; background: #333; z-index: 10; min-width: 150px; padding: 5px; border-radius: 4px; top: 100%; right: 0; display: none;';
+              
+              dropdownContainer.appendChild(logoutButton);
+              profileTrigger.parentElement.style.position = 'relative'; 
+              profileTrigger.parentElement.appendChild(dropdownContainer);
+              
+              logoutButton.style.cssText = 'color: #fff; text-decoration: none; display: block; padding: 8px 10px; text-align: center;';
+  
+              // Xử lý hover
+              profileTrigger.parentElement.addEventListener('mouseenter', () => {
+                  dropdownContainer.style.display = 'block';
+              });
+              profileTrigger.parentElement.addEventListener('mouseleave', () => {
+                  dropdownContainer.style.display = 'none';
+              });
+  
+              // ✅ Xử lý Đăng xuất bằng SweetAlert2
+              logoutButton.addEventListener("click", (e) => {
+                  e.preventDefault();
+                  Swal.fire({
+                      title: `Chào ${loggedInUser}!`,
+                      text: "Bạn có chắc chắn muốn đăng xuất không?",
+                      icon: 'question',
+                      showCancelButton: true,
+                      confirmButtonColor: '#d33', // Màu đỏ cho Đăng xuất
+                      cancelButtonColor: '#3085d6',
+                      confirmButtonText: 'Đăng xuất',
+                      cancelButtonText: 'Hủy'
+                  }).then((result) => {
+                      if (result.isConfirmed) {
+                          // Xóa thông tin đăng nhập
+                          localStorage.removeItem("loggedInUser");
+                          localStorage.removeItem("username");
+                          
+                          // Hiển thị thông báo đăng xuất thành công (Toast)
+                          Swal.fire({
+                              icon: 'success',
+                              title: 'Đã đăng xuất!',
+                              text: 'Bạn sẽ được chuyển hướng đến trang đăng nhập.',
+                              showConfirmButton: false,
+                              timer: 1500,
+                              toast: true,
+                              position: 'top-end'
+                          });
 
-                          // Chuyển hướng sau 1.5 giây
-                          setTimeout(() => {
-                              window.location.href = "index.html"; 
-                          }, 1500);
-                      }
-                  });
-              });
-  
-          } else {
-              // ✅ CHẾ ĐỘ CHƯA ĐĂNG NHẬP
-              profileTrigger.textContent = "Đăng nhập";
-              profileTrigger.href = "index.html"; // Chuyển đến trang login khi click
-          }
-      }
-      // Gọi hàm cập nhật số lượng giỏ hàng khi trang tải
-      updateCartCount();
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const loginLink = document.querySelector(".order_online");
-    const username = localStorage.getItem("username");
-
-    if (loginLink && username) {
-      // Nếu đã đăng nhập → đổi chữ "Đăng nhập" thành username
-      loginLink.textContent = username;
-      loginLink.href = "#";
-
-      // Thêm chức năng đăng xuất
-      loginLink.addEventListener("click", function(e) {
-        e.preventDefault();
-        if (confirm("Bạn có muốn đăng xuất không?")) {
-          localStorage.removeItem("username");
-          location.reload();
-        }
-      });
-    }
+                          // Chuyển hướng sau 1.5 giây
+                          setTimeout(() => {
+                              window.location.href = "index.html"; 
+                          }, 1500);
+                      }
+                  });
+              });
+  
+          } else {
+              // ✅ CHẾ ĐỘ CHƯA ĐĂNG NHẬP
+              profileTrigger.textContent = "Đăng nhập";
+              profileTrigger.href = "index.html"; // Chuyển đến trang login khi click
+          }
+      }
+      // Gọi hàm cập nhật số lượng giỏ hàng khi trang tải
+      updateCartCount();
   });
 </script>
+
 <!-- end header section -->
   </div>
 
