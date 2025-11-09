@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+
+  <title> KHK Restaurant - Kết quả "burger" </title>
+
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    xintegrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ=="
+    crossorigin="anonymous" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+
+  <style>
+    /* CSS cho thanh tìm kiếm */
+    .search-container {
+      max-width: 600px;
+      margin: 0;
+      position: relative;
+      flex-grow: 1; 
+    }
+
+    .search-box {
+      display: flex;
+      background: white;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 2px solid #ffbe33;
+    }
+
+    .search-input {
+      flex-grow: 1;
+      padding: 12px 20px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+      background: transparent;
+    }
+
+    .search-button {
+      background: #ffbe33;
+      color: white;
+      border: none;
+      padding: 0 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    .search-button:hover {
+      background: #e69c00;
+    }
+
+    /* (MỚI) CSS CHO THÔNG BÁO KẾT QUẢ */
+    .search-results-info {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #666;
+      font-style: italic;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #ffbe33;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px 0;
+      color: #666;
+    }
+
+    .no-results i {
+      font-size: 48px;
+      color: #ddd;
+      margin-bottom: 15px;
+    }
+
+    .col-sm-6.col-lg-4.all[style*="display: none"] {
+      display: none !important;
+    }
+
+
+    .detail-box h5 a {
+      color: #84ebe8;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .detail-box h5 a:hover {
+      color: #ffbe33;
+    }
+
+    /* ==================================== */
+    /* 1. CSS CHO DROPDOWN ĐĂNG XUẤT */
+    /* ==================================== */
+    
+    .profile-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #222;
+        min-width: 150px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1001;
+        right: 0;
+        top: 100%;
+        border-radius: 4px;
+        border-top: 2px solid #ffbe33;
+    }
+
+    .logout-link {
+        color: white;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+    }
+
+    .logout-link:hover {
+        background-color: #444;
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* ==================================== */
+    /* CSS CHO THANH TÌM KIẾM VÀ NÚT LỌC */
+    /* ==================================== */
+
+    .search-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center; 
+      margin: 0 auto 30px;  
+      max-width: 750px;     
+    }
+
+    .btn-filter {
+      display: inline-block;
+      background-color: #fff;     
+      border: 2px solid #ffbe33; 
+      color: #ffbe33;            
+      padding: 12px 16px;       
+      border-radius: 30px;      
+      text-decoration: none;
+      font-size: 16px;          
+      line-height: 1.2;         
+      margin-left: 10px;        
+      transition: all 0.3s ease;
+    }
+
+    .btn-filter:hover {
+      background-color: #ffbe33;  
+      color: #fff;               
+      text-decoration: none;
+    }
+
+    /* ==================================== */
+    /* CSS CHO POPUP TÌM KIẾM NÂNG CAO */
+    /* ==================================== */
+    #advancedSearchModal .modal-header {
+      border-bottom: 1px solid #dee2e6;
+    }
+    #advancedSearchModal .modal-title {
+      font-weight: 600;
+    }
+
+    #advancedSearchModal .modal-body .form-group label {
+      font-weight: 600;
+      margin-bottom: .5rem;
+      color: #333;
+    }
+
+    #advancedSearchModal .form-control {
+      border-radius: 0.25rem;
+      border: 1px solid #ced4da;
+    }
+    
+    .price-range-group {
+      display: flex;
+      align-items: center;
+    }
+    .price-range-group .form-control {
+      flex: 1;
+    }
+    .price-range-group span {
+      padding: 0 10px;
+      color: #6c757d;
+    }
+
+    #advancedSearchModal .modal-footer {
+      border-top: 1px solid #dee2e6;
+      justify-content: flex-end;
+    }
+
+    .btn-reset {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      color: white;
+    }
+    .btn-reset:hover {
+      background-color: #5a6268;
+      border-color: #545b62;
+      color: white;
+    }
+    
+    .btn-search {
+      background-color: #28a745;
+      border-color: #28a745;
+      color: white;
+    }
+    .btn-search:hover {
+      background-color: #218838;
+      border-color: #1e7e34;
+      color: white;
+    }
+  </style>
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="images/hero-bg.jpg" alt="">
+    </div>
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="trangchu.html">
+            <span>KHK Restaurant</span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mx-auto ">
+              <li class="nav-item">
+                <a class="nav-link" href="trangchu.html">Trang chủ <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active"><a class="nav-link" href="menu.html">Menu</a></li>
+              <li class="nav-item"><a class="nav-link" href="about.html">Thông tin</a></li>
+              <li class="nav-item"><a class="nav-link" href="book.html">Đặt bàn</a></li>
+            </ul>
+
+            <div class="user_option">
+              <a href="giaodiennguoidung.html" class="user_link"><i class="fa fa-user" aria-hidden="true"></i></a>
+
+              <a class="cart_link" href="cart.html">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 456.029 456.029">
+                  <path
+                    d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                  <path
+                    d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                  <path
+                    d="M215.04,389.55c-1.024-28.16-24.576-50.688-53.2736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                </svg>
+              </a>
+
+              <a href="menu.html" class="btn my-2 my-sm-0 nav_search-btn">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </a>
+
+              <div class="profile-dropdown">
+                <a id="loginButton" href="giaodiennguoidung.html" class="order_online">Nguyễn Văn Tèo</a>
+                
+                <div class="dropdown-content">
+                    <a href="index.html" class="logout-link">Đăng xuất</a>
+                </div>
+              </div>
+              </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <section class="food_section layout_padding-bottom">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Danh mục món ăn
+        </h2>
+      </div>
+
+      <ul class="filters_menu">
+        <!-- (MỚI) Bỏ class "active" khỏi 'All' -->
+        <li><a href="menu.html">All</a></li>
+        <li><a href="burger.html">Burger</a></li>
+        <li><a href="pizza.html">Pizza</a></li>
+        <li><a href="pasta.html">Pasta</a></li>
+        <li><a href="fries.html">Fries</a></li>
+      </ul>
+
+      <div class="search-wrapper">
+        
+        <div class="search-container">
+          <div class="search-box">
+            <!-- (MỚI) Thêm value="burger" vào ô input -->
+            <input type="text" class="search-input" placeholder="Tìm kiếm món ăn...""/>
+            <button class="search-button" type="button">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <a href="#" class="btn-filter" data-toggle="modal" data-target="#advancedSearchModal">
+          <i class="fa fa-filter" aria-hidden="true"></i>
+        </a>
+
+      </div>
+
+      <!-- (MỚI) Thêm thông báo kết quả tìm kiếm -->
+      <div class="search-results-info">
+        Hiển thị 3 kết quả cho từ khóa: "<strong>burger</strong>"
+      </div>
+
+
+      <div class="filters-content">
+        <div class="row grid" id="menu-items">
+          
+          <!-- (MỚI) Món này bị ẩn đi vì không phải 'burger' -->
+          <div class="col-sm-6 col-lg-4 all pizza" style="display: none;">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f1.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=P01"> Pizza Phô Mai Truyền Thống </a>
+                  </h5>
+                  <p>
+                    Được làm từ đế bánh nướng vàng giòn, kết hợp sốt cà chua truyền thống và lớp phô mai Mozzarella dày...
+                  </p>
+                  <div class="options">
+                    <h6> 129.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="P01" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (MỚI) Món này được HIỂN THỊ vì là 'burger' -->
+          <div class="col-sm-6 col-lg-4 all burger">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f2.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=B02">Burger bò </a>
+                  </h5>
+                  <p>
+                    Thịt bò xay tươi được nướng chín tới, kẹp cùng phô mai tan chảy, rau xà lách, cà chua và nước sốt...
+                  </p>
+                  <div class="options">
+                    <h6> 139.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="B02" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (MỚI) Món này bị ẩn đi vì không phải 'burger' -->
+          <div class="col-sm-6 col-lg-4 all pizza" style="display: none;">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f3.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=P03">Pizza Hải Sản </a>
+                  </h5>
+                  <p>
+                    Pizza được phủ đầy tôm, mực tươi và ớt chuông nhiều màu, hòa cùng lớp phô mai Mozzarella thơm béo...
+                  </p>
+                  <div class="options">
+                    <h6> 129.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="P03" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (MỚI) Món này bị ẩn đi vì không phải 'burger' -->
+          <div class="col-sm-6 col-lg-4 all pasta" style="display: none;">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f4.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=PA04"> Nui Ý Sốt Bò Bằm </a>
+                  </h5>
+                  <p>
+                    Nui được luộc vừa chín tới, sau đó trộn với nước sốt cà chua và thịt bò bằm hảo hạng...
+                  </p>
+                  <div class="options">
+                    <h6> 99.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="PA04" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (MỚI) Món này bị ẩn đi vì không phải 'burger' -->
+          <div class="col-sm-6 col-lg-4 all fries" style="display: none;">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f5.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=F05">Khoai tây chiên giòn </a>
+                  </h5>
+                  <p>
+                    Khoai tây tươi được cắt sợi đều, chiên ngập dầu ở nhiệt độ chuẩn để đạt độ giòn rụm bên ngoài...
+                  </p>
+                  <div class="options">
+                    <h6> 59.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="F05" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (MỚI) Món này bị ẩn đi vì không phải 'burger' -->
+          <div class="col-sm-6 col-lg-4 all pizza" style="display: none;">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f6.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=P06"> Pizza Thập Cẩm </a>
+                  </h5>
+                  <p>
+                    Đế bánh nướng vàng giòn phủ đầy các nguyên liệu phong phú như xúc xích, thịt nguội, nấm...
+                  </p>
+                  <div class="options">
+                    <h6> 129.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="P06" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (MỚI) Món này được HIỂN THỊ vì là 'burger' -->
+          <div class="col-sm-6 col-lg-4 all burger">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f7.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=B07"> Burger Gà Giòn Cay </a>
+                  </h5>
+                  <p>
+                    Thịt gà tươi được tẩm bột và chiên giòn rụm, phủ lớp nước sốt cay đặc trưng. Kèm theo rau xà lách...
+                  </p>
+                  <div class="options">
+                    <h6> 139.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="B07" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (MỚI) Món này được HIỂN THỊ vì là 'burger' -->
+          <div class="col-sm-6 col-lg-4 all burger">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f8.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=B08"> Burger đặc biệt KHK </a>
+                  </h5>
+                  <p>
+                    Sự hòa quyện độc đáo giữa thịt bò nướng, trứng ốp la, phô mai cheddar và sốt đặc chế của KHK...
+                  </p>
+                  <div class="options">
+                    <h6> 139.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="B08" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (MỚI) Món này bị ẩn đi vì không phải 'burger' -->
+          <div class="col-sm-6 col-lg-4 all pasta" style="display: none;">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f9.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=PA09">Nui Ý Phô Mai Đút Lò </a>
+                  </h5>
+                  <p>
+                    Nui Ý được trộn với sốt kem sữa tươi và phô mai mozzarella, sau đó đút lò cho lớp phô mai tan chảy...
+                  </p>
+                  <div class="options">
+                    <h6> 99.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="PA09" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HTML CHO POPUP TÌM KIẾM NÂNG CAO (MODAL) -->
+  <div class="modal fade" id="advancedSearchModal" tabindex="-1" role="dialog" aria-labelledby="advancedSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <h5 class="modal-title" id="advancedSearchModalLabel">Tìm kiếm nâng cao</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <div class="modal-body">
+          <form id="advanced-search-form">
+            
+            <div class="form-group">
+              <label for="adv-keyword">Từ khóa:</label>
+              <input type="text" class="form-control" id="adv-keyword" placeholder="Nhập từ khóa tìm kiếm...">
+            </div>
+            
+            <div class="form-group">
+              <label for="adv-category">Danh mục:</label>
+              <select class="form-control" id="adv-category">
+                <option value="all">Tất cả</option>
+                <option value="burger">Burger</option>
+                <option value="pizza">Pizza</option>
+                <option value="pasta">Pasta</option>
+                <option value="fries">Fries</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Khoảng giá:</label>
+              <div class="price-range-group">
+                <input type="number" class="form-control" id="price-from" placeholder="Từ (VNĐ)">
+                <span>-</span>
+                <input type="number" class="form-control" id="price-to" placeholder="Đến (VNĐ)">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="adv-sort">Sắp xếp theo:</label>
+              <select class="form-control" id="adv-sort">
+                <option value="default">Mặc định</option>
+                <option value="price-asc">Giá: Thấp đến Cao</option>
+                <option value="price-desc">Giá: Cao đến Thấp</option>
+                <option value="name-asc">Tên: A-Z</option>
+                <option value="name-desc">Tên: Z-A</option>
+              </select>
+            </div>
+
+          </form>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-reset" data-dismiss="modal">Đặt lại</button>
+          <a href="search.html" class="btn btn-search" id="apply-filters-btn">Tìm kiếm</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Liên hệ
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Địa chỉ: KHK, Quận 9, TP.HCM
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Hotline +84 364284562
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  khk.contactcontact@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              KHK Restaurant
+            </a>
+            <p>
+              Chúng tôi tự hào mang đến cho bạn trải nghiệm ẩm thực độc đáo với những món ăn ngon, không gian ấm cúng
+              và dịch vụ tận tâm.
+            </p>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Giờ mở cửa
+          </h4>
+          <p>
+            Mỗi ngày
+          </p>
+          <p>
+            10.00 Am -10.00 Pm
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By CQK team
+          <a href="https://html.design/">KHK Restaurant</a><br><br>
+          &copy; <span id="displayYear"></span> Distributed By
+          <a href="https://themewagon.com/" target="_blank">KHK Restaurant</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    xintegrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+  <script src="js/bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+    </script>
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <!-- <script src="js/custom.js"></script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+    </script>
+    
+  <script>
+    // Hàm đơn giản để hiện popup "alert"
+    function showAddedAlert(event) {
+      event.preventDefault(); 
+      alert("Đã thêm thành công!");
+    }
+  </script>
+</body>
+
+</html>

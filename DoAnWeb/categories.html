@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Loại Sản phẩm - KHK Admin</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #ffbe33;
+        --secondary-color: #222831;
+        --light-color: #ffffff;
+        --dark-color: #1a1a1a;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f8f9fa;
+      }
+      .sidebar {
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+        height: 100vh;
+        position: fixed;
+        width: 250px;
+        z-index: 1000;
+      }
+      .sidebar-header {
+        padding: 20px;
+        background-color: var(--dark-color);
+      }
+      .sidebar-header h3 {
+        font-family: "Dancing Script", cursive;
+        color: var(--primary-color);
+        margin: 0;
+      }
+      .sidebar ul.components {
+        padding: 20px 0;
+      }
+      .sidebar ul li a {
+        padding: 15px 20px;
+        display: block;
+        color: var(--light-color);
+        text-decoration: none;
+      }
+      .sidebar ul li a:hover {
+        background-color: var(--dark-color);
+        color: var(--primary-color);
+      }
+      .sidebar ul li.active a {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+      }
+      .sidebar ul li a i {
+        margin-right: 10px;
+      }
+      .content {
+        margin-left: 250px;
+        padding: 30px;
+      }
+      h2 i {
+        color: var(--primary-color);
+        margin-right: 10px;
+      }
+      .table th {
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+      }
+      /* (MỚI) Căn giữa nội dung table */
+      .table td, .table th {
+        vertical-align: middle;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        border: none;
+        color: var(--secondary-color);
+        font-weight: 600;
+      }
+      .btn-primary:hover {
+        background-color: #e6a700;
+      }
+      .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      }
+      .table thead {
+        background-color: var(--secondary-color);
+        color: white;
+      }
+      .table tbody tr:hover {
+        background-color: #f3f3f3;
+      }
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      }
+      .popup:target {
+        display: flex;
+      }
+      .popup-content {
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 450px;
+        animation: fadeIn 0.3s ease;
+        text-align: left; /* Căn trái cho form */
+      }
+      .popup-content h5 {
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .popup-actions {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+      /* (MỚI) Class căn giữa text cho popup thông báo */
+      .popup-content.popup-center-text {
+        text-align: center;
+      }
+      .popup-content.success {
+        text-align: center;
+        max-width: 400px;
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .popup-content.danger {
+        text-align: center;
+        max-width: 400px;
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h3><i class="fas fa-utensils"></i> KHK RESTAURANT ADMIN</h3>
+      </div>
+      <ul class="list-unstyled components">
+        <li>
+          <a href="admin.html"
+            ><i class="fas fa-tachometer-alt"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="menumanagement.html"
+            ><i class="fas fa-list"></i> Quản lý Menu</a
+          >
+        </li>
+        <!-- Trang này đang active -->
+        <li class="active">
+          <a href="categories.html"><i class="fas fa-tags"></i> Quản lý Loại</a>
+        </li>
+        <li>
+          <a href="orders.html"
+            ><i class="fas fa-shopping-cart"></i> Đơn hàng</a
+          >
+        </li>
+        <li>
+          <a href="bookingdetail.html"
+            ><i class="fas fa-calendar-alt"></i> Đặt bàn</a
+          >
+        </li>
+        <li>
+          <a href="customers.html"><i class="fas fa-users"></i> Khách hàng</a>
+        </li>
+        <li>
+          <a href="stockmanagement.html"
+            ><i class="fas fa-truck-loading"></i> Quản lý Nhập hàng</a
+          >
+        </li>
+        <li>
+          <a href="pricing.html"
+            ><i class="fas fa-dollar-sign"></i> Quản lý Giá bán</a
+          >
+        </li>
+        <li>
+          <a href="quanlyton.html"><i class="fas fa-boxes"></i> Quản lý Tồn</a>
+        </li>
+        <li>
+          <a href="report.html"><i class="fas fa-chart-bar"></i> Báo cáo</a>
+        </li>
+        <li>
+          <a href="setting.html"><i class="fas fa-cog"></i> Cài đặt</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <h2 class="mb-4"><i class="fas fa-tags"></i> Quản lý Loại sản phẩm</h2>
+
+      <!-- Bảng Loại sản phẩm -->
+      <div class="card mb-4">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5 class="mb-0">
+            <i class="fas fa-clipboard-list"></i> Danh sách các loại
+          </h5>
+          <a href="#addCategory" class="btn btn-primary"
+            ><i class="fas fa-plus"></i> Thêm loại mới</a
+          >
+        </div>
+        <div class="card-body">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Tên loại</th>
+                <th>Mô tả</th>
+                <th>Số lượng sản phẩm</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Burger</td>
+                <td>Các loại bánh burger kẹp thịt</td>
+                <td>4</td>
+                <td>
+                  <span class="badge bg-success"
+                    ><i class="fas fa-check"></i> Đang hiện</span
+                  >
+                </td>
+                <td>
+                  <a href="#editCategory" class="btn btn-sm btn-outline-primary" title="Sửa"
+                    ><i class="fas fa-edit"></i
+                  ></a>
+                  <!-- (MỚI) Nút Ẩn -->
+                  <a href="#confirmHide" class="btn btn-sm btn-outline-warning" title="Ẩn"
+                    ><i class="fas fa-eye-slash"></i
+                  ></a>
+                  <!-- (MỚI) Nút Xóa -->
+                  <a href="#confirmDelete" class="btn btn-sm btn-outline-danger" title="Xóa"
+                    ><i class="fas fa-trash"></i
+                  ></a>
+                </td>
+              </tr>
+              <tr>
+                <td>Pizza</td>
+                <td>Các loại pizza đế mỏng và dày</td>
+                <td>6</td>
+                <td>
+                  <span class="badge bg-success"
+                    ><i class="fas fa-check"></i> Đang hiện</span
+                  >
+                </td>
+                <td>
+                  <a href="#editCategory" class="btn btn-sm btn-outline-primary" title="Sửa"
+                    ><i class="fas fa-edit"></i
+                  ></a>
+                  <a href="#confirmHide" class="btn btn-sm btn-outline-warning" title="Ẩn"
+                    ><i class="fas fa-eye-slash"></i
+                  ></a>
+                  <a href="#confirmDelete" class="btn btn-sm btn-outline-danger" title="Xóa"
+                    ><i class="fas fa-trash"></i
+                  ></a>
+                </td>
+              </tr>
+              <tr>
+                <td>Pasta</td>
+                <td>Các loại mỳ Ý và nui</td>
+                <td>3</td>
+                <td>
+                  <span class="badge bg-success"
+                    ><i class="fas fa-check"></i> Đang hiện</span
+                  >
+                </td>
+                <td>
+                  <a href="#editCategory" class="btn btn-sm btn-outline-primary" title="Sửa"
+                    ><i class="fas fa-edit"></i
+                  ></a>
+                  <a href="#confirmHide" class="btn btn-sm btn-outline-warning" title="Ẩn"
+                    ><i class="fas fa-eye-slash"></i
+                  ></a>
+                  <a href="#confirmDelete" class="btn btn-sm btn-outline-danger" title="Xóa"
+                    ><i class="fas fa-trash"></i
+                  ></a>
+                </td>
+              </tr>
+              <tr>
+                <td>Fries</td>
+                <td>Các loại khoai tây chiên</td>
+                <td>2</td>
+                <td>
+                  <span class="badge bg-secondary"
+                    ><i class="fas fa-eye-slash"></i> Đã ẩn</span
+                  >
+                </td>
+                <td>
+                  <a href="#editCategory" class="btn btn-sm btn-outline-primary" title="Sửa"
+                    ><i class="fas fa-edit"></i
+                  ></a>
+                  <!-- (MỚI) Nút Hiện -->
+                  <a
+                    href="#confirmShow"
+                    class="btn btn-sm btn-outline-success"
+                    title="Hiện"
+                    ><i class="fas fa-eye"></i
+                  ></a>
+                  <a href="#confirmDelete" class="btn btn-sm btn-outline-danger" title="Xóa"
+                    ><i class="fas fa-trash"></i
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- POPUPS -->
+    <!-- Popup thêm loại -->
+    <div id="addCategory" class="popup">
+      <div class="popup-content">
+        <h5><i class="fas fa-plus-circle"></i> Thêm loại sản phẩm</h5>
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Tên loại</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="VD: Đồ uống"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mô tả</label>
+            <textarea
+              class="form-control"
+              rows="3"
+              placeholder="VD: Các loại nước ngọt, trà,..."
+            ></textarea>
+          </div>
+          <div class="popup-actions">
+            <a href="#" class="btn btn-secondary">Hủy</a>
+            <a href="#addSuccess" class="btn btn-primary">Lưu</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Popup sửa loại -->
+    <div id="editCategory" class="popup">
+      <div class="popup-content">
+        <h5><i class="fas fa-edit"></i> Chỉnh sửa loại: Burger</h5>
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Tên loại</label>
+            <input type="text" class="form-control" value="Burger" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mô tả</label>
+            <textarea class="form-control" rows="3">
+Các loại bánh burger kẹp thịt</textarea
+            >
+          </div>
+          <div class="mb-3"> <!-- (MỚI) Sửa lỗi HTML (thiếu class) -->
+            <label class="form-label">Trạng thái</label>
+            <select class="form-select">
+              <option selected>Đang hiện</option>
+              <option>Đã ẩn</option>
+            </select>
+          </div>
+          <div class="popup-actions">
+            <a href="#" class="btn btn-secondary">Hủy</a>
+            <a href="#editSuccess" class="btn btn-primary">Lưu thay đổi</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- (MỚI) Popup xác nhận ẨN -->
+    <div id="confirmHide" class="popup">
+      <div class="popup-content danger popup-center-text">
+        <h5>Bạn có chắc muốn ẨN loại sản phẩm này?</h5>
+        <p>Các sản phẩm thuộc loại này sẽ không hiển thị trên menu.</p>
+        <div class="popup-actions">
+          <a href="#" class="btn btn-secondary">Hủy</a>
+          <a href="#editSuccess" class="btn btn-danger">Xác nhận Ẩn</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- (MỚI) Popup xác nhận HIỆN -->
+    <div id="confirmShow" class="popup">
+      <div class="popup-content popup-center-text"> <!-- Không có class danger -->
+        <h5>Bạn có chắc muốn HIỆN loại sản phẩm này?</h5>
+        <p>Sản phẩm sẽ hiển thị trở lại trên menu.</p>
+        <div class="popup-actions">
+          <a href="#" class="btn btn-secondary">Hủy</a>
+          <a href="#editSuccess" class="btn btn-success">Xác nhận Hiện</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- (MỚI) Popup xác nhận XÓA -->
+    <div id="confirmDelete" class="popup">
+      <div class="popup-content danger popup-center-text">
+        <h5>Xác nhận XÓA vĩnh viễn?</h5>
+        <p>Hành động này không thể hoàn tác. Tất cả sản phẩm thuộc loại này cũng sẽ bị ảnh hưởng.</p>
+        <div class="popup-actions">
+          <a href="#" class="btn btn-secondary">Hủy</a>
+          <a href="#deleteSuccess" class="btn btn-danger">Xóa Vĩnh Viễn</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Success Popups -->
+    <div id="addSuccess" class="popup">
+      <div class="popup-content success">
+        ✅ Thêm loại sản phẩm thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+    <div id="editSuccess" class="popup">
+      <div class="popup-content success">
+        ✅ Cập nhật loại sản phẩm thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+    <!-- (MỚI) Popup Xóa thành công -->
+    <div id="deleteSuccess" class="popup">
+      <div class="popup-content success">
+        🗑️ Xóa loại sản phẩm thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

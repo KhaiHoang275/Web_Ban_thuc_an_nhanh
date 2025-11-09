@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="giỏ hàng, khk restaurant" />
+  <meta name="description" content="Trang giỏ hàng KHK Restaurant" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+  <title>Giỏ hàng | KHK Restaurant</title>
+
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    crossorigin="anonymous" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  
+  <style>
+    /* CSS CỐ ĐỊNH CHO BADGE GIỎ HÀNG (Sẽ không hiển thị số vì đã xóa JS) */
+    .cart_link {
+        position: relative !important;
+    }
+    
+    .cart-badge {
+        display: none; /* Ẩn đi vì không có JS để cập nhật */
+    }
+
+    /* ==================================== */
+    /* 1. CSS CHO DROPDOWN ĐĂNG XUẤT (ĐÃ SỬA) */
+    /* ==================================== */
+    
+    .profile-dropdown {
+        position: relative;
+        display: inline-block;
+        /* Sửa lỗi giao diện đè lên icon */
+        margin-left: 0 20px; /* SỬA LỖI CÚ PHÁP */
+        vertical-align: middle;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #222;
+        min-width: 150px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1001;
+        right: 0;
+        top: 100%;
+        border-radius: 4px;
+        border-top: 2px solid #ffbe33;
+    }
+
+    .logout-link {
+        color: white;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+    }
+
+    .logout-link:hover {
+        background-color: #444;
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+        display: block; /* ... thì .dropdown-content sẽ hiện ra */
+    }
+    
+    /* ==================================== */
+    /* 2. CSS CHO POPUP (TỪ chitietdonhang.html) */
+    /* ==================================== */
+
+    .overlay-page {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        padding: 50px 0;
+        overflow-y: auto;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ⭐ SỬA LỖI CĂN GIỮA: DÙNG FLEX ĐỂ CĂN GIỮA POPUP */
+    .overlay-page:target {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .checkout-content, .success-content {
+        background: white;
+        color: #333; 
+        max-width: 700px;
+        margin: 20px auto;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        position: relative;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 2em;
+        text-decoration: none;
+        color: #888; 
+        font-weight: bold;
+    }
+    .close-btn:hover {
+        color: #333;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 5px;
+    }
+
+    .checkout-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+    }
+
+    .btn-confirm, .btn-cancel {
+        flex: 1;
+        margin: 0 10px;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1em;
+        height: 45px;
+        line-height: 20px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-confirm {
+        background-color: #008000; /* Green */
+        color: white;
+    }
+
+    .btn-cancel {
+        background-color: #dc3545; /* Red */
+        color: white;
+    }
+
+    .order-details-summary {
+        border: 1px solid #ffbe33;
+        padding: 15px;
+        margin-bottom: 20px;
+        background: #fff8e8;
+        border-radius: 4px;
+    }
+
+    .order-details-summary div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+
+    .order-details-summary .total {
+        font-weight: bold;
+        color: #e69c00;
+    }
+    
+    /* =========================================== */
+    /* 3. CSS CHO POPUP THÀNH CÔNG (THEO FORMAT MỚI) */
+    /* =========================================== */
+    
+    .success-content {
+        max-width: 550px; 
+        padding: 40px 30px;
+        background-color: #f9f9f9; 
+        color: #333;
+        text-align: center;
+        border-radius: 12px;
+
+    }
+    
+    .success-icon {
+        width: 60px;
+        height: 60px;
+        background-color: #28a745; 
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px auto;
+    }
+    .success-icon i {
+        color: #ffffff;
+        font-size: 2em;
+    }
+    
+    .success-content h4 {
+        font-size: 2em; 
+        font-weight: bold;
+        color: #222;
+        margin-bottom: 10px;
+    }
+
+    .success-content .description {
+        font-size: 1em;
+        color: #666;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    .order-details-box {
+        background-color: #f0f0f0; 
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .order-detail-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0; 
+        font-size: 0.95em;
+        color: #555;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .order-detail-item:last-child {
+        border-bottom: none;
+    }
+    .order-detail-item span {
+        font-weight: 500;
+    }
+    .order-detail-item span:last-child {
+        font-weight: bold;
+        color: #111;
+    }
+
+    .success-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; 
+    }
+
+    .btn-home, .btn-history {
+        text-decoration: none;
+        padding: 14px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.3s;
+    }
+
+    .btn-home {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+    .btn-home:hover {
+        background-color: #f5f5f5;
+        color: #000;
+    }
+
+    .btn-history {
+        background-color: #e69c00;
+        border: 1px solid #e69c00;
+        color: #ffffff;
+    }
+    .btn-history:hover {
+        background-color: #e69c00;
+    }
+    
+  </style>
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="images/hero-bg.jpg" alt="">
+    </div>
+    
+<header class="header_section">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg custom_nav-container ">
+      <a class="navbar-brand" href="trangchu.html">
+        <span>KHK Restaurant</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class=""> </span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav  mx-auto ">
+          <li class="nav-item">
+            <a class="nav-link" href="trangchu.html">Trang chủ <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">Thông tin</a></li>
+          <li class="nav-item"><a class="nav-link" href="book.html">Đặt bàn</a></li>
+        </ul>
+
+        <div class="user_option">
+          <a href="giaodiennguoidung.html" class="user_link"><i class="fa fa-user" aria-hidden="true"></i></a>
+
+          <a class="cart_link active" href="cart.html">
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 456.029 456.029">
+              <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248
+                c0,29.184,23.552,53.248,53.248,53.248
+                c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+              <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304
+                C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472
+                c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                c4.096,27.136,27.648,47.616,55.296,47.616h212.992
+                c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                C457.728,97.71,450.56,86.958,439.296,84.91z" />
+              <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688
+                c-29.696,1.536-52.224,26.112-51.2,55.296
+                c1.024,28.16,24.064,50.688,52.224,50.688h1.024
+                C193.536,443.31,216.576,418.734,215.04,389.55z" />
+            </svg>
+          </a>
+
+          <a href="menu.html" class="btn my-2 my-sm-0 nav_search-btn">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </a>
+
+          <div class="profile-dropdown">
+            <a id="loginButton" href="giaodiennguoidung.html" class="order_online">Nguyễn Văn Tèo</a>
+            
+            <div class="dropdown-content">
+                <a href="index.html" class="logout-link">Đăng xuất</a>
+            </div>
+          </div>
+          </div>
+      </div>
+    </nav>
+  </div>
+</header>
+</div>
+
+  <section class="cart_section layout_padding">
+    <div class="container bg-white p-4 rounded shadow-sm">
+      <h2 class="text-center mb-4">🛒 Giỏ hàng của bạn</h2>
+
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th>Sản phẩm</th>
+              <th>Hình ảnh</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+              <th>Tổng</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items">
+            <tr>
+              <td>Burger bò</td>
+              <td><img src="images/f2.png" width="70" class="rounded" alt="Burger"></td>
+              <td>139.000₫</td>
+              <td>
+                  <div class="input-group justify-content-center">
+                      <a href="#" class="btn btn-outline-secondary btn-sm">-</a>
+                      <input type="text" value="1" class="form-control text-center" style="width:50px;" readonly>
+                      <a href="#" class="btn btn-outline-secondary btn-sm">+</a>
+                  </div>
+              </td>
+              <td class="item-total">139.000₫</td>
+              <td>
+                <a href="#" class="btn btn-danger btn-sm" onclick="showDeleteMessage(event)">Xóa</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Pizza Phô Mai Truyền Thống</td>
+              <td><img src="images/f1.png" width="70" class="rounded" alt="Pizza"></td>
+              <td>129.000₫</td>
+              <td>
+                  <div class="input-group justify-content-center">
+                      <a href="#" class="btn btn-outline-secondary btn-sm">-</a>
+                      <input type="text" value="2" class="form-control text-center" style="width:50px;" readonly>
+                      <a href="#" class="btn btn-outline-secondary btn-sm">+</a>
+                  </div>
+              </td>
+              <td class="item-total">258.000₫</td>
+              <td>
+                <a href="#" class="btn btn-danger btn-sm" onclick="showDeleteMessage(event)">Xóa</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-right mt-4">
+        <h4>Tổng cộng: <span id="cart-total" class="text-danger font-weight-bold">397.000₫</span></h4>
+        
+        <a href="#checkout" class="btn btn-success btn-lg mt-3">
+          Thanh toán
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function showDeleteMessage(event) {
+      event.preventDefault(); 
+      alert("Đã xóa thành công!");
+    }
+  </script>
+
+  <div id="checkout" class="overlay-page">
+    <div class="checkout-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <h3>📝 Chi tiết đơn hàng & Địa chỉ giao hàng</h3>
+
+        <div class="order-details-summary">
+            <p style="font-size: 1.1em; margin-bottom: 10px; color: #333;">
+                **Đơn hàng của bạn:**
+            </p>
+            <div>
+                <span>Burger bò x 1</span>
+                <span>139.000 VNĐ</span>
+            </div>
+            <div>
+                <span>Pizza Phô Mai Truyền Thống x 2</span>
+                <span>258.000 VNĐ</span>
+            </div>
+            <hr style="border-top: 1px dashed #ffbe33;">
+            <div>
+                <span>Phí vận chuyển</span>
+                <span>25.000 VNĐ</span>
+            </div>
+            <div class="total" style="font-size: 1.2em; margin-top: 10px;">
+                <span>TỔNG CỘNG</span>
+                <span>422.000 VNĐ</span>
+            </div>
+        </div>
+
+        <div>
+            <h4>Thông tin giao hàng</h4>
+            
+            <div class="form-group">
+                <label for="name">Họ và tên:</label>
+                <input type="text" id="name" name="name" value="Nguyễn Văn Tèo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input type="tel" id="phone" name="phone" value="0901234567" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Địa chỉ chi tiết:</label>
+                <input type="text" id="address" name="address" value="Số 10, Đường ABC, Phường Hiển Đức" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="city">Tỉnh/Thành phố:</label>
+                <select id="city" name="city">
+                    <option value="HCM" selected>TP Hồ Chí Minh</option>
+                    <option value="HN">Hà Nội</option>
+                    <option value="DN">Đà Nẵng</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="note">Ghi chú (Tùy chọn):</label>
+                <input type="text" id="note" name="note" placeholder="Ví dụ: Giao sau 18h...">
+            </div>
+
+            <div class="form-group">
+                <label for="payment">Phương thức thanh toán:</label>
+                <select id="payment" name="payment">
+                    <option value="cod">Thanh toán khi nhận hàng (COD)</option>
+                    <option value="bank">Chuyển khoản ngân hàng</option>
+                </select>
+            </div>
+
+            <div class="checkout-buttons">
+                <a href="#success-message" class="btn-confirm">
+                    Xác nhận và Đặt hàng
+                </a>
+                <a href="#" class="btn-cancel">
+                    Hủy
+                </a>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <div id="success-message" class="overlay-page">
+    <div class="success-content">
+        <a href="#" class="close-btn">&times;</a> 
+        
+        <div class="success-icon">
+            <i class="fa fa-check"></i>
+        </div>
+        
+        <h4>Đặt hàng thành công!</h4>
+        
+        <p class="description">
+            Cảm ơn bạn đã đặt hàng tại KHK Restaurant. Đơn hàng của bạn 
+            <br>đã được xác nhận và đang được xử lý.
+        </p>
+
+        <div class="order-details-box">
+            <div class="order-detail-item">
+                <span>Mã đơn hàng:</span>
+                <span>#DH001</span>
+            </div>
+            <div class="order-detail-item">
+                <span>Ngày đặt hàng:</span>
+                <span>08/11/2025</span> </div>
+            <div class="order-detail-item">
+                <span>Tổng tiền:</span>
+                <span>422.000₫</span> </div>
+            <div class="order-detail-item">
+                <span>Phương thức thanh toán:</span>
+                <span>Thanh toán khi nhận hàng</span>
+            </div>
+            <div class="order-detail-item">
+                <span>Địa chỉ giao hàng:</span>
+                <span>Số 10, Đường ABC, P. Hiển Đức</span>
+            </div>
+        </div>
+
+        <div class="success-buttons">
+            <a href="trangchu.html" class="btn-home">
+                <i class="fa fa-home"></i> Về trang chủ
+            </a>
+            <a href="giaodiennguoidung.html" class="btn-history">
+                <i class="fa fa-list"></i> Xem lịch sử đơn hàng
+            </a>
+        </div>
+    </div>
+  </div>
+
+</body>
+</html>

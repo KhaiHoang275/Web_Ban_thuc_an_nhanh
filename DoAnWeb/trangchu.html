@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+
+  <title> KHK Restaurant </title>
+
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ=="
+    crossorigin="anonymous" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  <style>
+    .detail-box h5 a {
+      color: #84ebe8;
+      text-decoration: none;
+      /* Bỏ gạch chân mặc định nếu có */
+      transition: color 0.3s ease;
+      /* Thêm hiệu ứng chuyển màu mượt mà */
+    }
+
+    .detail-box h5 a:hover {
+      color: #ffbe33;
+    }
+
+    .col-sm-6.col-lg-4.all[style*="display: none"] {
+      display: none !important;
+    }
+
+    /* ==================================== */
+    /* ⭐ 1. CSS CHO DROPDOWN ĐĂNG XUẤT (KHÔNG JS) */
+    /* ==================================== */
+    
+    .profile-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #222;
+        min-width: 150px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1001;
+        right: 0;
+        top: 100%;
+        border-radius: 4px;
+        border-top: 2px solid #ffbe33;
+    }
+
+    .logout-link {
+        color: white;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+    }
+
+    .logout-link:hover {
+        background-color: #444;
+    }
+
+    /* Khi di chuột vào .profile-dropdown... */
+    .profile-dropdown:hover .dropdown-content {
+        display: block; /* ... thì .dropdown-content sẽ hiện ra */
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="images/hero-bg.jpg" alt="">
+    </div>
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="trangchu.html">
+            <span>KHK Restaurant</span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mx-auto ">
+              <li class="nav-item active">
+                <a class="nav-link" href="trangchu.html">Trang chủ <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+              <li class="nav-item"><a class="nav-link" href="about.html">Thông tin</a></li>
+              <li class="nav-item"><a class="nav-link" href="book.html">Đặt bàn</a></li>
+            </ul>
+
+            <div class="user_option">
+              <a href="giaodiennguoidung.html" class="user_link"><i class="fa fa-user" aria-hidden="true"></i></a>
+
+              <a class="cart_link" href="cart.html">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 456.029 456.029">
+                  <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248
+                   c0,29.184,23.552,53.248,53.248,53.248
+                   c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                  <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304
+                   C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                   C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472
+                   c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                   c4.096,27.136,27.648,47.616,55.296,47.616h212.992
+                   c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                   C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                  <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688
+                   c-29.696,1.536-52.224,26.112-51.2,55.296
+                   c1.024,28.16,24.064,50.688,52.224,50.688h1.024
+                   C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                </svg>
+              </a>
+
+              <a href="menu.html" class="btn my-2 my-sm-0 nav_search-btn">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </a>
+
+              <div class="profile-dropdown">
+                <a id="loginButton" href="giaodiennguoidung.html" class="order_online">Nguyễn Văn Tèo</a>
+                
+                <div class="dropdown-content">
+                    <a href="index.html" class="logout-link">Đăng xuất</a>
+                </div>
+              </div>
+              </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <section class="slider_section ">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7 col-lg-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Đa dạng món ăn
+                    </h1>
+                    <p>
+                      Đa dạng món ăn với nguyên liệu tươi ngon, đảm bảo vệ sinh an toàn thực phẩm, mang đến trải nghiệm
+                      ẩm thực tuyệt vời cho khách hàng.
+                    </p>
+                    <div class="btn-box">
+                      <a href="book.html" class="btn1">
+                        Đặt trước
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item ">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7 col-lg-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Trải nghiệm
+                    </h1>
+                    <p>
+                      Trải nghiệm ẩm thực nhanh chóng và tiện lợi với dịch vụ đặt hàng trực tuyến và giao hàng tận nơi,
+                      đáp ứng nhu cầu của khách hàng hiện đại.
+                    </p>
+                    <div class="btn-box">
+                      <a href="book.html" class="btn1">
+                        Đặt trước
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7 col-lg-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Ấn tượng
+                    </h1>
+                    <p>
+                      Tạo ấn tượng mạnh mẽ với khách hàng thông qua không gian nhà hàng độc đáo, dịch vụ chuyên nghiệp và
+                      chất lượng món ăn tuyệt vời.
+                    </p>
+                    <div class="btn-box">
+                      <a href="book.html" class="btn1">
+                        Đặt trước
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <ol class="carousel-indicators">
+            <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+            <li data-target="#customCarousel1" data-slide-to="1"></li>
+            <li data-target="#customCarousel1" data-slide-to="2"></li>
+          </ol>
+        </div>
+      </div>
+
+    </section>
+    </div>
+
+  <section class="offer_section layout_padding-bottom">
+    <div class="offer_container">
+      <div class="container ">
+        <div class="row">
+          <div class="col-md-6  ">
+            <div class="box ">
+              <div class="img-box">
+                <img src="images/o1.jpg" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Thứ Hai Vui Vẻ
+                </h5>
+                <h6>
+                  <span>20%</span> Off
+                </h6>
+                <a href="menu.html">
+                  Đặt ngay <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                    style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                    <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                    <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                    <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6  ">
+            <div class="box ">
+              <div class="img-box">
+                <img src="images/o2.jpg" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  "Black Friday"
+                </h5>
+                <h6>
+                  <span>15%</span> Off
+                </h6>
+                <a href="menu.html">
+                  Đặt ngay <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                    style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                    <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                    <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                    <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="food_section layout_padding-bottom">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Danh mục món ăn
+        </h2>
+      </div>
+
+      <!-- <ul class="filters_menu">
+        <li class="active" data-filter="*">All</li>
+        <li data-filter=".burger">Burger</li>
+        <li data-filter=".pizza">Pizza</li>
+        <li data-filter=".pasta">Pasta</li>
+        <li data-filter=".fries">Fries</li>
+      </ul> -->
+
+      <div class="filters-content">
+        <div class="row grid">
+          
+          <div class="col-sm-6 col-lg-4 all pizza">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f1.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=P01"> Pizza Phô Mai Truyền Thống </a>
+                  </h5>
+                  <p>
+                    Được làm từ đế bánh nướng vàng giòn, kết hợp sốt cà chua truyền thống và lớp phô mai Mozzarella dày...
+                  </p>
+                  <div class="options">
+                    <h6> 129.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="P01" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4 all burger">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f2.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=B02">Burger bò </a>
+                  </h5>
+                  <p>
+                    Thịt bò xay tươi được nướng chín tới, kẹp cùng phô mai tan chảy, rau xà lách, cà chua và nước sốt...
+                  </p>
+                  <div class="options">
+                    <h6> 139.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="B02" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4 all pizza">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f3.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=P03">Pizza Hải Sản </a>
+                  </h5>
+                  <p>
+                    Pizza được phủ đầy tôm, mực tươi và ớt chuông nhiều màu, hòa cùng lớp phô mai Mozzarella thơm béo...
+                  </p>
+                  <div class="options">
+                    <h6> 129.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="P03" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4 all pasta">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f4.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=PA04"> Nui Ý Sốt Bò Bằm </a>
+                  </h5>
+                  <p>
+                    Nui được luộc vừa chín tới, sau đó trộn với nước sốt cà chua và thịt bò bằm hảo hạng...
+                  </p>
+                  <div class="options">
+                    <h6> 99.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="PA04" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4 all fries">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f5.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=F05">Khoai tây chiên giòn </a>
+                  </h5>
+                  <p>
+                    Khoai tây tươi được cắt sợi đều, chiên ngập dầu ở nhiệt độ chuẩn để đạt độ giòn rụm bên ngoài...
+                  </p>
+                  <div class="options">
+                    <h6> 59.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="F05" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4 all pizza">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f6.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=P06"> Pizza Thập Cẩm </a>
+                  </h5>
+                  <p>
+                    Đế bánh nướng vàng giòn phủ đầy các nguyên liệu phong phú như xúc xích, thịt nguội, nấm...
+                  </p>
+                  <div class="options">
+                    <h6> 129.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="P06" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4 all burger">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f7.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=B07"> Burger Gà Giòn Cay </a>
+                  </h5>
+                  <p>
+                    Thịt gà tươi được tẩm bột và chiên giòn rụm, phủ lớp nước sốt cay đặc trưng. Kèm theo rau xà lách...
+                  </p>
+                  <div class="options">
+                    <h6> 139.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="B07" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4 all burger">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f8.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=B08"> Burger đặc biệt KHK </a>
+                  </h5>
+                  <p>
+                    Sự hòa quyện độc đáo giữa thịt bò nướng, trứng ốp la, phô mai cheddar và sốt đặc chế của KHK...
+                  </p>
+                  <div class="options">
+                    <h6> 139.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="B08" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4 all pasta">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <img src="images/f9.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    <a href="productdetails.html?id=PA09">Nui Ý Phô Mai Đút Lò </a>
+                  </h5>
+                  <p>
+                    Nui Ý được trộn với sốt kem sữa tươi và phô mai mozzarella, sau đó đút lò cho lớp phô mai tan chảy...
+                  </p>
+                  <div class="options">
+                    <h6> 99.000 VNĐ </h6>
+                    <a href="#" class="add-to-cart-btn" data-id="PA09" onclick="showAddedAlert(event)">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                        style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                        <g> <g> <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /> </g> </g>
+                        <g> <g> <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /> </g> </g>
+                        <g> <g> <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /> </g> </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="btn-box">
+        <a href="menu.html">
+          Xem thêm
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="about_section layout_padding">
+    <div class="container  ">
+
+      <div class="row">
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img src="images/about-img.png" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                Chúng tôi là KHK restaurant
+              </h2>
+            </div>
+            <p>
+              KHK restaurant tự hào mang đến cho bạn trải nghiệm ẩm thực độc đáo với những món ăn ngon, không gian ấm
+              cúng và dịch vụ tận tâm. Hãy đến và thưởng thức hương vị tuyệt vời tại KHK restaurant!
+            </p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="book_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          Đặt bàn
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form_container">
+            <form id="bookingForm" action="">
+              <div>
+                <input type="text" class="form-control" placeholder="Họ và tên" id="fullName" required />
+              </div>
+              <div>
+                <input type="number" class="form-control" placeholder="Số điện thoại" id="phoneNumber" required />
+              </div>
+              <div>
+                <input type="email" class="form-control" placeholder="Email" id="email" required />
+              </div>
+              <div>
+                <select class="form-control nice-select wide" id="numberOfPeople" required>
+                  <option value="" disabled selected>
+                    Có bao nhiêu người?
+                  </option>
+                  <option value="2">
+                    2
+                  </option>
+                  <option value="3">
+                    3
+                  </option>
+                  <option value="4">
+                    4
+                  </option>
+                  <option value="5">
+                    5
+                  </option>
+                </select>
+              </div>
+              <div>
+                <input type="date" class="form-control" id="bookingDate" required>
+              </div>
+              <div>
+                <textarea class="form-control" placeholder="Ghi chú / Yêu cầu đặc biệt (ví dụ: bàn gần cửa sổ, dị ứng...)"
+                  id="specialRequests" rows="3"></textarea>
+              </div>
+              <div class="btn_box">
+                <button type="button" onclick="showBookingSuccess(event)">
+                  Đặt ngay
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="client_section layout_padding-bottom">
+    <div class="container">
+      <div class="heading_container heading_center psudo_white_primary mb_45">
+        <h2>
+          Phản hồi từ khách hàng
+        </h2>
+      </div>
+      <div class="carousel-wrap row ">
+        <div class="owl-carousel client_owl-carousel">
+          <div class="item">
+            <div class="box">
+              <div class="detail-box">
+                <p>
+                  Món ăn ở đây thật tuyệt vời! Tôi rất thích hương vị và cách trình bày của từng món. Dịch vụ cũng rất
+                  chuyên nghiệp và thân thiện.
+                </p>
+                <h6>
+                  Gia Linh
+                </h6>
+                <p>
+                  khách hàng thân thiết
+                </p>
+              </div>
+              <div class="img-box">
+                <img src="images/client1.jpg" alt="" class="box-img">
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="box">
+              <div class="detail-box">
+                <p>
+                  Tôi đã có một trải nghiệm ẩm thực tuyệt vời tại nhà hàng này. Món ăn ngon, không gian ấm cúng và nhân
+                  viên phục vụ rất tận tình.
+                </p>
+                <h6>
+                  Gia Huy
+                </h6>
+                <p>
+                  khách hàng thân thiết
+                </p>
+              </div>
+              <div class="img-box">
+                <img src="images/client2.jpg" alt="" class="box-img">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Liên hệ
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Địa chỉ: KHK, Quận 9, TP.HCM
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Hotline +84 364284562
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  khk.contactcontact@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              KHK Restaurant
+            </a>
+            <p>
+              Chúng tôi tự hào mang đến cho bạn trải nghiệm ẩm thực độc đáo với những món ăn ngon, không gian ấm cúng và
+              dịch vụ tận tâm.
+            </p>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Giờ mở cửa
+          </h4>
+          <p>
+            Mỗi ngày
+          </p>
+          <p>
+            10.00 Am -10.00 Pm
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By CQK team
+          <a href="https://html.design/">KHK Restaurant</a><br><br>
+          &copy; <span id="displayYear"></span> Distributed By
+          <a href="https://themewagon.com/" target="_blank">KHK Restaurant</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+  <script src="js/bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+    </script>
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <script>
+    // --- 1. HÀM POPUP "ĐÃ THÊM THÀNH CÔNG" ---
+    function showAddedAlert(event) {
+      // Ngăn thẻ <a> chuyển trang (vì href="#")
+      event.preventDefault(); 
+      
+      // Hiện popup "alert"
+      alert("Đã thêm thành công!");
+    }
+
+function showBookingSuccess(event) {
+  // 1. Ngăn form tự động gửi đi
+  event.preventDefault(); 
+  
+  alert("Đặt bàn thành công!");
+  location.reload();
+}
+  </script>
+</body>
+</html>

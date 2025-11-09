@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Glass Morphism Login</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="">
+    <link rel="stylesheet" href="login/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+  </head>
+
+  <body>
+    <div class="glass-container">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="input-group">
+          <input type="text" id="username" required />
+          <label>Username</label>
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" required />
+          <label>Password</label>
+        </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox" />Remember Me </label>
+          <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit" class="Login-btn">Login</button>
+
+        <div class="register-link">
+          <p>Don't have an account? <a href="index2.html">Register</a></p>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // Hàm hiển thị SweetAlert tùy chỉnh
+      function showAlert(icon, title, text) {
+          Swal.fire({
+              icon: icon,
+              title: title,
+              text: text,
+              showConfirmButton: false,
+              timer: 2000,
+              toast: true,
+              position: 'top-end'
+          });
+      }
+
+      document.getElementById("loginForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (username && password) {
+          // Kiểm tra nếu là tài khoản admin
+          if (username === "admin" && password === "admin") {
+            // Thay thế alert() bằng SweetAlert2 cho Admin
+            showAlert("success", "Đăng nhập Admin thành công!", "Chào mừng Admin.");
+            
+            // Chờ 2 giây sau đó chuyển hướng (để người dùng kịp thấy thông báo)
+            setTimeout(() => {
+                window.location.href = "admin.html"; 
+            }, 2000); 
+
+          } else {
+            // Đây là tài khoản người dùng thông thường
+            localStorage.setItem("username", username);
+            
+            // Thay thế alert() bằng SweetAlert2 cho Người dùng thường
+            showAlert("success", "Đăng nhập thành công!", `Chào mừng ${username} đã quay trở lại.`);
+            
+            // Chờ 2 giây sau đó chuyển hướng
+            setTimeout(() => {
+                window.location.href = "trangchu.html";
+            }, 2000);
+          }
+        } else {
+          // Thay thế alert() bằng SweetAlert2 cho Lỗi
+          showAlert("error", "Đăng nhập thất bại!", "Vui lòng nhập đủ tên người dùng và mật khẩu!");
+        }
+      });
+    </script>
+  </body>
+
+</html>
