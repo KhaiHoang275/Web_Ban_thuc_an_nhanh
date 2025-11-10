@@ -263,6 +263,31 @@
       .stat-card .label {
         color: #6c757d;
       }
+      
+      /* (MỚI) CSS CHO POPUP XEM CHI TIẾT KHÁCH HÀNG */
+      #viewCustomer .popup-content {
+        max-width: 600px; /* Rộng hơn để chứa bảng */
+        max-height: 80vh; /* Thêm cuộn */
+        overflow-y: auto;
+      }
+      
+      #viewCustomer .order-history-table {
+        width: 100%;
+        margin-top: 15px;
+        font-size: 0.9em;
+      }
+      #viewCustomer .order-history-table th {
+         background-color: #f1f1f1;
+         color: #333;
+         text-align: left;
+         padding: 8px;
+      }
+      #viewCustomer .order-history-table td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #eee;
+      }
+
     </style>
   </head>
   <body>
@@ -587,17 +612,64 @@
       </div>
     </div>
 
-    <!-- Popup: xem chi tiết khách hàng -->
-    <!-- (MỚI) Xóa class 'popup-center-text' (nếu có) để căn lề trái -->
+    <!-- (MỚI) POPUP XEM CHI TIẾT ĐÃ CẬP NHẬT -->
     <div id="viewCustomer" class="popup">
       <div class="popup-content">
         <h5>Thông tin khách hàng</h5>
         <p><strong>Tên:</strong> Nguyễn Văn A</p>
         <p><strong>Email:</strong> vana@example.com</p>
         <p><strong>Số điện thoại:</strong> 0901234567</p>
-        <p><strong>Số đơn hàng:</strong> 12</p>
         <p><strong>Trạng thái:</strong> <span class="badge badge-success">Hoạt động</span></p>
 
+        <!-- (MỚI) Bảng lịch sử đơn hàng -->
+        <hr class="my-3">
+        <h6>Lịch sử đơn hàng</h6>
+        <div class="table-responsive" style="max-height: 250px;"> <!-- Thêm cuộn cho riêng bảng -->
+          <table class="table table-sm order-history-table">
+            <thead>
+              <tr>
+                <th>Mã đơn</th>
+                <th>Ngày đặt</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#ORD-101</td>
+                <td>24/10/2025</td>
+                <td>450,000đ</td>
+                <td><span class="badge bg-success">Hoàn thành</span></td>
+              </tr>
+              <tr>
+                <td>#ORD-095</td>
+                <td>15/10/2025</td>
+                <td>129,000đ</td>
+                <td><span class="badge bg-success">Hoàn thành</span></td>
+              </tr>
+              <tr>
+                <td>#ORD-080</td>
+                <td>02/10/2025</td>
+                <td>89,000đ</td>
+                <td><span class="badge bg-danger">Đã hủy</span></td>
+              </tr>
+               <tr>
+                <td>#ORD-075</td>
+                <td>28/09/2025</td>
+                <td>220,000đ</td>
+                <td><span class="badge bg-success">Hoàn thành</span></td>
+              </tr>
+               <tr>
+                <td>#ORD-070</td>
+                <td>25/09/2025</td>
+                <td>310,000đ</td>
+                <td><span class="badge bg-success">Hoàn thành</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Kết thúc bảng -->
+        
         <div class="popup-actions">
           <a href="#" class="btn btn-primary">Đóng</a>
         </div>
