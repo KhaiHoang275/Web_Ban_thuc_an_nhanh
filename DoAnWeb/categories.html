@@ -98,6 +98,13 @@
       .table tbody tr:hover {
         background-color: #f3f3f3;
       }
+      
+      /* (MỚI) CSS cho thanh filter */
+      .filter-bar input,
+      .filter-bar select {
+        border-radius: 8px;
+      }
+
       .popup {
         position: fixed;
         top: 0;
@@ -220,6 +227,33 @@
     <!-- CONTENT -->
     <div class="content">
       <h2 class="mb-4"><i class="fas fa-tags"></i> Quản lý Loại sản phẩm</h2>
+
+      <!-- (MỚI) Thanh tìm kiếm -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <form class="row g-3 filter-bar">
+            <div class="col-md-5">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Tìm theo tên loại..."
+              />
+            </div>
+            <div class="col-md-4">
+              <select class="form-select">
+                <option value="">Tất cả trạng thái</option>
+                <option value="active">Đang hiện</option>
+                <option value="locked">Đã ẩn</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <button class="btn btn-primary w-100">
+                <i class="fas fa-search"></i> Lọc
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <!-- Bảng Loại sản phẩm -->
       <div class="card mb-4">
@@ -396,7 +430,7 @@ Các loại bánh burger kẹp thịt</textarea
           </div>
           <div class="popup-actions">
             <a href="#" class="btn btn-secondary">Hủy</a>
-            <a href="#editSuccess" class="btn btn-primary">Lưu thay đổi</a>
+            <a href="#editSuccess" class_name="btn btn-primary">Lưu thay đổi</a>
           </div>
         </form>
       </div>
