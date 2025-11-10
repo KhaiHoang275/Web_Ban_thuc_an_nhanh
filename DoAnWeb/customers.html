@@ -122,11 +122,19 @@
       .btn-primary {
         background-color: var(--primary-color);
         border-color: var(--primary-color);
+        color: var(--secondary-color); /* (MỚI) Thêm màu chữ */
       }
 
       .btn-primary:hover {
         background-color: #e69c00;
         border-color: #e69c00;
+        color: var(--secondary-color); /* (MỚI) Thêm màu chữ */
+      }
+      
+      /* (MỚI) CSS cho thanh filter */
+      .filter-bar input,
+      .filter-bar select {
+        border-radius: 8px;
       }
 
       @media (max-width: 768px) {
@@ -336,6 +344,34 @@
           </div>
         </div>
       </div>
+
+      <!-- (MỚI) Thanh tìm kiếm -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <form class="row g-3 filter-bar">
+            <div class="col-md-5">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Tìm theo tên, email hoặc SĐT..."
+              />
+            </div>
+            <div class="col-md-4">
+              <select class="form-select">
+                <option value="">Tất cả trạng thái</option>
+                <option value="active">Hoạt động</option>
+                <option value="locked">Bị khóa</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <button class="btn btn-primary w-100">
+                <i class="fas fa-search"></i> Lọc
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
 
       <!-- Bảng khách hàng -->
       <div class="card">
