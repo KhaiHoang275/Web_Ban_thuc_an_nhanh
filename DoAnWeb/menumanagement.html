@@ -1,4 +1,4 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -192,7 +192,7 @@
         background-color: #d4edda;
         color: #155724;
       }
-      
+
       /* Thêm class danger cho popup xóa */
       .popup-content.danger {
         background-color: #f8d7da;
@@ -229,9 +229,7 @@
           >
         </li>
         <li>
-          <a href="categories.html"
-            ><i class="fas fa-tags"></i> Quản lý Loại</a
-          >
+          <a href="categories.html"><i class="fas fa-tags"></i> Quản lý Loại</a>
         </li>
         <li>
           <a href="orders.html"
@@ -356,7 +354,7 @@
                 <th>Hình ảnh</th>
                 <th>Tên món</th>
                 <th>Danh mục</th>
-                <th>Giá</th>
+
                 <th>Đánh giá</th>
                 <th>Ngày thêm</th>
                 <th>Trạng thái</th>
@@ -368,7 +366,7 @@
                 <td><img src="images/f1.png" width="50" class="rounded" /></td>
                 <td>Pizza Hải Sản</td>
                 <td>Pizza</td>
-                <td>129.000đ</td>
+
                 <td class="rating">⭐⭐⭐⭐☆</td>
                 <td>20/10/2025</td>
                 <td>
@@ -393,7 +391,7 @@
                 <td><img src="images/f2.png" width="50" class="rounded" /></td>
                 <td>Burger Bò Phô Mai</td>
                 <td>Burger</td>
-                <td>89.000đ</td>
+
                 <td class="rating">⭐⭐⭐⭐⭐</td>
                 <td>22/10/2025</td>
                 <td>
@@ -420,7 +418,7 @@
                 <td><img src="images/f4.png" width="50" class="rounded" /></td>
                 <td>Nui ý</td>
                 <td>Pasta</td>
-                <td>99.000đ</td>
+
                 <td class="rating">⭐⭐⭐⭐⭐</td>
                 <td>21/10/2025</td>
                 <td>
@@ -500,7 +498,7 @@
           style="display: block; margin: 0 auto"
         />
         <p><strong>Danh mục:</strong> Pizza</p>
-        <p><strong>Giá:</strong> 129.000đ</p>
+
         <p><strong>Trạng thái:</strong> Còn hàng</p>
         <p>
           <strong>Mô tả:</strong> Pizza hải sản phô mai béo ngậy, đế giòn tan.
@@ -528,11 +526,9 @@
           style="display: block; margin: 0 auto"
         />
         <p><strong>Danh mục:</strong> Burger</p>
-        <p><strong>Giá:</strong> 89.000đ</p>
+
         <p><strong>Trạng thái:</strong> Hết hàng</p>
-        <p>
-          <strong>Mô tả:</strong> Burger Bò Thơm Ngon Với Phô Mai Kéo Sợi.
-          </p>
+        <p><strong>Mô tả:</strong> Burger Bò Thơm Ngon Với Phô Mai Kéo Sợi.</p>
         <p><strong>Nguyên liệu:</strong></p>
         <ul>
           <li>Bò: 2kg</li>
@@ -555,11 +551,9 @@
           style="display: block; margin: 0 auto"
         />
         <p><strong>Danh mục:</strong> Pasta</p>
-        <p><strong>Giá:</strong> 99.000đ</p>
+
         <p><strong>Trạng thái:</strong> Còn hàng</p>
-        <p>
-          <strong>Mô tả:</strong> Nui Ý béo ngậy với phô mai
-          </p>
+        <p><strong>Mô tả:</strong> Nui Ý béo ngậy với phô mai</p>
         <p><strong>Nguyên liệu:</strong></p>
         <ul>
           <li>Nui: 300g</li>
@@ -584,7 +578,9 @@
 
     <div id="editOrder" class="popup">
       <div class="popup-content text-start">
-        <h5 class="text-center"><i class="fas fa-edit"></i> Chỉnh sửa món ăn</h5>
+        <h5 class="text-center">
+          <i class="fas fa-edit"></i> Chỉnh sửa món ăn
+        </h5>
         <form>
           <label>Tên món</label>
           <input
@@ -600,14 +596,6 @@
             <option>Đồ uống</option>
             <option>Pasta</option>
           </select>
-
-          <label>Giá (VNĐ)</label>
-          <input
-            type="number"
-            class="form-control mb-2"
-            value="129000"
-            required
-          />
 
           <label>Trạng thái</label>
           <select class="form-select mb-2">
@@ -645,7 +633,6 @@ Pizza hải sản phô mai béo ngậy, đế giòn tan.</textarea
       </div>
     </div>
 
-
     <div id="deleteConfirm" class="popup">
       <div class="popup-content danger">
         <h5>Bạn có chắc muốn xóa món ăn này không?</h5>
@@ -677,5 +664,4 @@ Pizza hải sản phô mai béo ngậy, đế giòn tan.</textarea
       });
     </script>
   </body>
-</html>
 </html>
