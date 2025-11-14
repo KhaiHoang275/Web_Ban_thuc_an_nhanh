@@ -240,6 +240,51 @@
       border-color: #1e7e34;
       color: white;
     }
+
+    .pagination {
+      margin-top: 40px;
+      margin-bottom: 20px; /* Thêm khoảng cách phía dưới nếu cần */
+    }
+
+    .page-item .page-link {
+      color: #ffbe33; /* Màu chữ mặc định */
+      border: 1px solid #ffbe33; /* Viền mặc định */
+      border-radius: 5px; /* Bo tròn nhẹ */
+      margin: 0 4px; /* Khoảng cách giữa các nút */
+      transition: all 0.3s ease; /* Hiệu ứng chuyển động mượt mà */
+      padding: 8px 15px; /* Điều chỉnh kích thước nút */
+    }
+
+    .page-item .page-link:hover {
+      background-color: #ffbe33; /* Màu nền khi hover */
+      color: white; /* Màu chữ khi hover */
+      border-color: #ffbe33; /* Màu viền khi hover */
+    }
+
+    .page-item.active .page-link {
+      background-color: #ffbe33; /* Màu nền khi active */
+      border-color: #ffbe33; /* Màu viền khi active */
+      color: white; /* Màu chữ khi active */
+      font-weight: bold; /* Chữ đậm hơn khi active */
+    }
+
+    .page-item.disabled .page-link {
+      color: #cccccc; /* Màu chữ khi disabled */
+      border-color: #e9ecef; /* Màu viền khi disabled */
+      background-color: #f8f9fa; /* Màu nền khi disabled */
+      cursor: not-allowed; /* Con trỏ không cho phép */
+    }
+    
+    .page-item:first-child .page-link,
+    .page-item:last-child .page-link {
+      border-radius: 5px; /* Đảm bảo nút đầu và cuối cũng bo tròn */
+    }
+
+    /* Bo tròn hoàn hảo cho các nút */
+    .pagination .page-link {
+        border-radius: 50px !important; /* Bo tròn hoàn toàn */
+    }
+
   </style>
 </head>
 
@@ -603,6 +648,34 @@
           
         </div>
       </div>
+      <nav aria-label="Page navigation" class="mt-4">
+  <ul class="pagination justify-content-center">
+    
+    <li class="page-item disabled">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    
+    <li class="page-item active" aria-current="page">
+      <a class="page-link" href="#">1</a>
+    </li>
+
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item disabled">
+      <span class="page-link">...</span>
+    </li>
+            
+   <li class="page-item"><a class="page-link" href="#">10</a></li>
+    
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
     </div>
   </section>
 

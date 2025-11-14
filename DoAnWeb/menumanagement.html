@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quản lý Menu - Feane Admin</title>
-    <link rel="shortcut icon" href="images/favicon.png" type="">
+    <link rel="shortcut icon" href="images/favicon.png" type="" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -161,14 +161,14 @@
       }
 
       .popup-content {
-    background: #fff;
-    padding: 25px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 420px; /* popup nhỏ gọn và đối xứng */
-    animation: fadeIn 0.3s ease;
-    text-align: center; /* căn giữa nội dung */
-}
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 420px; /* popup nhỏ gọn và đối xứng */
+        animation: fadeIn 0.3s ease;
+        text-align: center; /* căn giữa nội dung */
+      }
 
       @keyframes fadeIn {
         from {
@@ -192,6 +192,12 @@
         background-color: #d4edda;
         color: #155724;
       }
+      
+      /* Thêm class danger cho popup xóa */
+      .popup-content.danger {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
 
       .preview-img {
         width: 100%;
@@ -206,8 +212,7 @@
       }
     </style>
   </head>
-  
-    <!-- SIDEBAR -->
+  <body>
     <div class="sidebar">
       <div class="sidebar-header">
         <h3><i class="fas fa-utensils"></i> KHK RESTAURANT ADMIN</h3>
@@ -225,7 +230,8 @@
         </li>
         <li>
           <a href="categories.html"
-            ><i class="fas fa-tags"></i> Quản lý Loại</a>
+            ><i class="fas fa-tags"></i> Quản lý Loại</a
+          >
         </li>
         <li>
           <a href="orders.html"
@@ -241,13 +247,17 @@
           <a href="customers.html"><i class="fas fa-users"></i> Khách hàng</a>
         </li>
         <li>
-            <a href="stockmanagement.html"><i class="fas fa-truck-loading"></i> Quản lý Nhập hàng</a>
+          <a href="stockmanagement.html"
+            ><i class="fas fa-truck-loading"></i> Quản lý Nhập hàng</a
+          >
         </li>
 
         <li>
-            <a href="pricing.html"><i class="fas fa-dollar-sign"></i> Quản lý Giá bán</a>
+          <a href="pricing.html"
+            ><i class="fas fa-dollar-sign"></i> Quản lý Giá bán</a
+          >
         </li>
-        <li >
+        <li>
           <a href="quanlyton.html"><i class="fas fa-boxes"></i> Quản lý Tồn</a>
         </li>
         <li>
@@ -259,11 +269,9 @@
       </ul>
     </div>
 
-    <!-- CONTENT -->
     <div class="content">
       <h2 class="mb-4"><i class="fas fa-list"></i> Quản lý Menu</h2>
 
-      <!-- Stats -->
       <div class="row mb-4">
         <div class="col-md-4">
           <div class="stat-card">
@@ -288,7 +296,6 @@
         </div>
       </div>
 
-      <!-- Filter -->
       <div class="card mb-4">
         <div class="card-body">
           <form class="row g-3 filter-bar">
@@ -331,7 +338,6 @@
         </div>
       </div>
 
-      <!-- Menu Table -->
       <div class="card mb-4">
         <div
           class="card-header d-flex justify-content-between align-items-center"
@@ -443,8 +449,6 @@
       </div>
     </div>
 
-    <!-- POPUPS: Thêm, Sửa, Chi tiết, Xóa ... -->
-    <!-- Popup thêm món -->
     <div id="addItem" class="popup">
       <div class="popup-content text-start">
         <h5 class="text-center">
@@ -486,7 +490,6 @@
       </div>
     </div>
 
-    <!-- Popup xem chi tiết -->
     <div id="viewDetail" class="popup">
       <div class="popup-content text-start">
         <h5 class="text-center">🍕 Chi tiết món: Pizza Hải Sản</h5>
@@ -529,13 +532,12 @@
         <p><strong>Trạng thái:</strong> Hết hàng</p>
         <p>
           <strong>Mô tả:</strong> Burger Bò Thơm Ngon Với Phô Mai Kéo Sợi.
-          <!--sửa-->
-        </p>
+          </p>
         <p><strong>Nguyên liệu:</strong></p>
         <ul>
           <li>Bò: 2kg</li>
           <li>Phô Mai: 1kg</li>
-          <li>Cà Chua, Rau Salad, </li>
+          <li>Cà Chua, Rau Salad</li>
         </ul>
         <p><strong>Ngày thêm:</strong> 20/10/2025</p>
         <div class="text-center">
@@ -543,7 +545,7 @@
         </div>
       </div>
     </div>
-     <div id="viewDetail3" class="popup">
+    <div id="viewDetail3" class="popup">
       <div class="popup-content text-start">
         <h5 class="text-center">🍕 Chi tiết món: Nui Ý</h5>
         <img
@@ -556,14 +558,13 @@
         <p><strong>Giá:</strong> 99.000đ</p>
         <p><strong>Trạng thái:</strong> Còn hàng</p>
         <p>
-          <strong>Mô tả:</strong> Nui Ý béo ngậy với phô mai 
-          <!--sửa-->
-        </p>
+          <strong>Mô tả:</strong> Nui Ý béo ngậy với phô mai
+          </p>
         <p><strong>Nguyên liệu:</strong></p>
         <ul>
           <li>Nui: 300g</li>
           <li>Phô Mai: 1kg</li>
-          <li>Cà Chua, Ô liu, Thơm </li>
+          <li>Cà Chua, Ô liu, Thơm</li>
         </ul>
         <p><strong>Ngày thêm:</strong> 23/10/2025</p>
         <div class="text-center">
@@ -572,7 +573,6 @@
       </div>
     </div>
 
-    <!-- Popup thành công -->
     <div id="addSuccess" class="popup">
       <div class="popup-content success text-center">
         ✅ Thêm món thành công!
@@ -581,35 +581,53 @@
         </div>
       </div>
     </div>
-  <!-- Chinh sua don hang -->
+
     <div id="editOrder" class="popup">
-      <div class="popup-content">
-        <h5>Chỉnh sửa đơn hàng</h5>
+      <div class="popup-content text-start">
+        <h5 class="text-center"><i class="fas fa-edit"></i> Chỉnh sửa món ăn</h5>
         <form>
+          <label>Tên món</label>
           <input
             type="text"
             class="form-control mb-2"
-            value="Nguyễn Văn A"
+            value="Pizza Hải Sản"
             required
           />
-          <input
-            type="text"
-            class="form-control mb-2"
-            value="Pizza Hải Sản, Burger Bò"
-            required
-          />
+          <label>Danh mục</label>
+          <select class="form-select mb-2">
+            <option selected>Pizza</option>
+            <option>Burger</option>
+            <option>Đồ uống</option>
+            <option>Pasta</option>
+          </select>
+
+          <label>Giá (VNĐ)</label>
           <input
             type="number"
             class="form-control mb-2"
-            value="450000"
+            value="129000"
             required
           />
-          <textarea class="form-control mb-2">Không hành tây</textarea>
-          <select class="form-select mb-3">
-            <option selected>Hoàn thành</option>
-            <option>Đang xử lý</option>
-            <option>Đã hủy</option>
+
+          <label>Trạng thái</label>
+          <select class="form-select mb-2">
+            <option selected>Còn hàng</option>
+            <option>Hết hàng</option>
           </select>
+
+          <!-- <label>Hình ảnh hiện tại</label>
+          <img
+            src="images/f1.png"
+            class="preview-img mb-2"
+            style="max-height: 150px; margin-top: 5px"
+          /> -->
+          <label>Thay đổi hình ảnh (tùy chọn)</label>
+          <input type="file" class="form-control mb-2" accept="image/*" />
+
+          <label>Mô tả</label>
+          <textarea class="form-control mb-3" rows="3">
+Pizza hải sản phô mai béo ngậy, đế giòn tan.</textarea
+          >
           <div class="popup-actions">
             <a href="#" class="btn btn-secondary">Hủy</a>
             <a href="#editSuccess" class="btn btn-primary">Lưu thay đổi</a>
@@ -618,25 +636,35 @@
       </div>
     </div>
 
-    <div id="deleteConfirm" class="popup">
-      <div class="popup-content danger">
-        <h5>Bạn có chắc muốn xóa đơn hàng này không?</h5>
-        <div class="popup-actions">
-          <a href="#" class="btn btn-secondary">Hủy</a>
-          <a href="#deleteSuccess" class="btn btn-danger">Xóa</a>
-        </div>
-      </div>
-    </div>
-    <div id="deleteSuccess" class="popup">
-      <div class="popup-content success">
-        🗑️ Xóa đơn hàng thành công!
+    <div id="editSuccess" class="popup">
+      <div class="popup-content success text-center">
+        ✏️ Cập nhật món ăn thành công!
         <div class="popup-actions">
           <a href="#" class="btn btn-primary">Đóng</a>
         </div>
       </div>
     </div>
 
-    <!-- Preview JS -->
+
+    <div id="deleteConfirm" class="popup">
+      <div class="popup-content danger">
+        <h5>Bạn có chắc muốn xóa món ăn này không?</h5>
+        <div class="popup-actions">
+          <a href="#" class="btn btn-secondary">Hủy</a>
+          <a href="#deleteSuccess" class="btn btn-danger">Xóa</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="deleteSuccess" class="popup">
+      <div class="popup-content success">
+        🗑️ Xóa món ăn thành công!
+        <div class="popup-actions">
+          <a href="#" class="btn btn-primary">Đóng</a>
+        </div>
+      </div>
+    </div>
+
     <script>
       const upload = document.getElementById("imgUpload");
       const preview = document.getElementById("preview");
@@ -650,4 +678,3 @@
     </script>
   </body>
 </html>
-
